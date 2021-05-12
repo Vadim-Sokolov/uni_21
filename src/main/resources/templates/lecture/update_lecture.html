@@ -30,6 +30,11 @@
 				<option th:value="'16:00'" th:text="16:00"></option>
 				<option th:value="'17:00'" th:text="17:00"></option>
 			</select>
+			
+			<select type=date  th:field="*{time}" required>
+           		<option th:each="timeOption : ${timeList}" th:value="${timeOption.localTime}"/>
+				
+			</select>
             
             <button type="submit" class="btn btn-info col-2">Update Lecture</button>
         </form>

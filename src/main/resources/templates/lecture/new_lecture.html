@@ -19,9 +19,10 @@
            <input type="text" th:field="*{teacherId}" placeholder="Teacher Id" class="form-control mb-4 col-4" required>
            <input type="text" th:field="*{groupId}" placeholder="Group Id" class="form-control mb-4 col-4" required>
            
-           <select th:field="*{time}" required>
-           		<option th:each="timeOption : ${timeList}" th:value="${timeOption.getName()}"/>
-				
+           
+			
+			<select type=date th:field="*{time}" required>
+           		<option th:each="timeOption : ${timeList}" th:value="${timeOption.localTime}"/>
 			</select>
            
            <button type="submit" class="btn btn-info col-2">Save Lecture</button>

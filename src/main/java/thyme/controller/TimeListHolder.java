@@ -1,5 +1,6 @@
 package thyme.controller;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,15 +13,15 @@ public class TimeListHolder {
 
 	static {
 		timeList = new ArrayList<>();
-		timeList.add(new TimeOption("09:00"));
-		timeList.add(new TimeOption("10:00"));
-		timeList.add(new TimeOption("11:00"));
-		timeList.add(new TimeOption("12:00"));
-		timeList.add(new TimeOption("13:00"));
-		timeList.add(new TimeOption("14:00"));
-		timeList.add(new TimeOption("15:00"));
-		timeList.add(new TimeOption("16:00"));
-		timeList.add(new TimeOption("17:00"));
+		timeList.add(new TimeOption(LocalTime.of(9, 0)));
+		timeList.add(new TimeOption(LocalTime.of(10, 0)));
+		timeList.add(new TimeOption(LocalTime.of(11, 0)));
+		timeList.add(new TimeOption(LocalTime.of(12, 0)));
+		timeList.add(new TimeOption(LocalTime.of(13, 0)));
+		timeList.add(new TimeOption(LocalTime.of(14, 0)));
+		timeList.add(new TimeOption(LocalTime.of(15, 0)));
+		timeList.add(new TimeOption(LocalTime.of(16, 0)));
+		timeList.add(new TimeOption(LocalTime.of(17, 0)));
 	}
 
 	public List<TimeOption> getTimeList() {

@@ -1,19 +1,24 @@
 package thyme.controller;
 
+import java.time.LocalTime;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class TimeOption {
 
-	public String name;
+	@DateTimeFormat(pattern = "HH:mm")
+	public LocalTime localTime;
 
-	public TimeOption(String name) {
+	public TimeOption(LocalTime localTime) {
 		super();
-		this.name = name;
+		this.localTime = localTime;
 	}
 
-	public String getName() {
-		return name;
+	public LocalTime getLocaltime() {
+		return localTime;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLocaltime(LocalTime localTime) {
+		this.localTime = localTime;
 	}
 }
