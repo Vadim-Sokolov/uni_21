@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import thyme.model.Course;
 import thyme.model.dto.CourseDTO;
 import thyme.service.CourseService;
 
@@ -45,8 +44,8 @@ public class CourseController {
 
 	@GetMapping("/showUpdateCourseForm/{id}")
 	public String showUpdateForm(@PathVariable(value = "id") int id, Model model) {
-		Course course = courseService.getCourse(id).get();
-		model.addAttribute("course", course);
+		CourseDTO courseDTO = courseService.getCourse(id);
+		model.addAttribute("course", courseDTO);
 		return "course/update_course";
 	}
 	

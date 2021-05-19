@@ -11,13 +11,15 @@
 
 <body>
     <div class="container my-2">
-        <h2>Save Auditorium</h2>
+        <h2>Save Student</h2>
 
-        <form action="#" th:action="@{/saveAuditorium}" th:object="${auditoriumDTO}" method="POST">
-            <input type="text" th:field="*{name}" placeholder="Name" class="form-control mb-4 col-4" required>
-            <input type="text" th:field="*{capacity}" placeholder="Capacity" class="form-control mb-4 col-4" required>
+        <form action="#" th:action="@{/saveStudent}" th:object="${studentDTO}" method="POST">
+            <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control mb-4 col-4" required>
+            <input type="text" th:field="*{lastName}" placeholder="Last Name" class="form-control mb-4 col-4" required>
+            <input type="text" th:field="*{studentCardNumber}" placeholder="Card Number" class="form-control mb-4 col-4" required>
+            <input type="text" th:field="*{groupId}" placeholder="Group Id" class="form-control mb-4 col-4" required>
             
-            <button type="submit" class="btn btn-info col-2">Save Auditorium</button>
+            <button type="submit" class="btn btn-info col-2">Save Student</button>
         </form>
     </div>
 </body>

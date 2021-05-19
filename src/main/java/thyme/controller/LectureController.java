@@ -14,17 +14,13 @@ import thyme.service.LectureService;
 public class LectureController {
 
 	private LectureService lectureService;
-	private TimeListHolder timeListHolder;
-	
 
-	public LectureController(LectureService lectureService, TimeListHolder timeListHolder) {
+	public LectureController(LectureService lectureService) {
 		this.lectureService = lectureService;
-		this.timeListHolder = timeListHolder;
 	}
 
 	@GetMapping("/lectures")
 	public String getLectures(Model model) {
-
 		model.addAttribute("lectureList", lectureService.getLectures());
 		return "lecture/lectures";
 	}
@@ -32,7 +28,6 @@ public class LectureController {
 	@GetMapping("/showNewLectureForm")
 	public String showNewForm(Model model) {
 		model.addAttribute("lectureDTO", new LectureDTO());
-		model.addAttribute("timeList", timeListHolder.getTimeList());
 		return "lecture/new_lecture";
 	}
 
@@ -52,7 +47,7 @@ public class LectureController {
 		model.addAttribute("lecture", lectureDTO);
 		return "lecture/update_lecture";
 	}
-	
+
 	@GetMapping("/deleteLecture/{id}")
 	public String deleteLecture(@PathVariable(value = "id") int id, Model model) {
 		lectureService.deleteLecture(id);

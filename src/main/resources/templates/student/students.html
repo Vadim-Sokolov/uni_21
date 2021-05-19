@@ -28,24 +28,26 @@
     </table>
 
     <div class="container my-2">
-        <a th:href="@{/showNewAuditoriumForm}" class="btn btn-primary btn-sm mb-3">Add New Auditorium</a>
+        <a th:href="@{/showNewStudentForm}" class="btn btn-primary btn-sm mb-3">Add New Student</a>
         <table class="table table-primary table-bordered border-dark table-striped table-responsive-md">
-            <caption>Auditoriums</caption>
+            <caption>Students</caption>
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Capacity</th>
-                    <th>Actions</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Card Number</th>
+                    <th scope="col">Group</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="auditorium : ${auditoriumList}">
-                    <td th:text="${auditorium.id}"></td>
-                    <td th:text="${auditorium.name}"></td>
-                    <td th:text="${auditorium.capacity}"></td>
-                    <td><a th:href="@{/showUpdateAuditoriumForm/{id}(id=${auditorium.id})}" class="btn btn-primary">Update</a>
-                        <a th:href="@{/deleteAuditorium/{id}(id=${auditorium.id})}" class="btn btn-danger">Delete</a>
+                <tr th:each="student : ${studentList}">
+                    <td th:text="${student.id}"></td>
+                    <td th:text="${student.firstName + ' ' + student.lastName}"></td>
+                    <td th:text="${student.studentCardNumber}"></td>
+                    <td th:text="${student.group.name}"></td>
+                    <td><a th:href="@{/showUpdateStudentForm/{id}(id=${student.id})}" class="btn btn-primary">Update</a>
+                        <a th:href="@{/deleteStudent/{id}(id=${student.id})}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             </tbody>

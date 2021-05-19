@@ -41,8 +41,13 @@ public class AuditoriumService {
 		return auditoriumRepository.findAll();
 	}
 
-	public Optional<Auditorium> getAuditorium(int id) {
-		return auditoriumRepository.findById(id);
+	public AuditoriumDTO getAuditorium(int id) {
+		Optional<Auditorium> optional = auditoriumRepository.findById(id);
+		if (optional.isPresent()) {
+			return auditoriumDtoConverter.toDTO(optional.get());
+		} else {
+			throw new ServiceException(INVALID_AUDITORIUM_ID);
+		}
 	}
 
 	public void deleteAuditorium(int id) {

@@ -2,6 +2,8 @@ package thyme.model.dto;
 
 import java.time.LocalTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class LectureDTO {
 
 	private Integer id;
@@ -9,6 +11,7 @@ public class LectureDTO {
 	private Integer auditoriumId;
 	private Integer teacherId;
 	private Integer groupId;
+	@DateTimeFormat(pattern = "HH:mm")
 	private LocalTime time;
 
 	public Integer getId() {

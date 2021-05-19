@@ -53,8 +53,13 @@ public class TeacherService {
 		return teacherRepository.findAll();
 	}
 
-	public Optional<Teacher> getTeacher(int id) {
-		return teacherRepository.findById(id);
+	public TeacherDTO getTeacher(int id) {
+		Optional<Teacher> optional = teacherRepository.findById(id);
+		if (optional.isPresent()) {
+			return teacherDtoConverter.toDTO(optional.get());
+		} else {
+			throw new ServiceException(INVALID_TEACHER_ID);
+		}
 	}
 
 	public void deleteTeacher(int id) {

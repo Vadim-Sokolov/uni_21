@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import thyme.model.Auditorium;
 import thyme.model.dto.AuditoriumDTO;
 import thyme.service.AuditoriumService;
 
@@ -45,8 +44,8 @@ public class AuditoriumController {
 
 	@GetMapping("/showUpdateAuditoriumForm/{id}")
 	public String showUpdateForm(@PathVariable(value = "id") int id, Model model) {
-		Auditorium auditorium = auditoriumService.getAuditorium(id).get();
-		model.addAttribute("auditorium", auditorium);
+		AuditoriumDTO auditoriumDTO = auditoriumService.getAuditorium(id);
+		model.addAttribute("auditorium", auditoriumDTO);
 		return "auditorium/update_auditorium";
 	}
 	

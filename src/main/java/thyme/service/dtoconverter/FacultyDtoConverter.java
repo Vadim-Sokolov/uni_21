@@ -13,4 +13,11 @@ public class FacultyDtoConverter {
 		faculty.setName(facultyDTO.getName());
 		return faculty;
 	}
+	
+	public FacultyDTO toDTO(Faculty faculty) {
+		FacultyDTO facultyDTO = new FacultyDTO();
+		facultyDTO.setId(faculty.getId());
+		facultyDTO.setName(faculty.getName());
+		return facultyDTO;
+	}
 }

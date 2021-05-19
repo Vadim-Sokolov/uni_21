@@ -17,23 +17,19 @@
         	<input type="hidden" th:field="*{id}" />
            	<input type="text" th:field="*{courseId}" class="form-control mb-4 col-4" required>
            	<input type="text" th:field="*{auditoriumId}" class="form-control mb-4 col-4" required>
-           	<input type="text" th:field="*{teacherd}" class="form-control mb-4 col-4" required>
+           	<input type="text" th:field="*{teacherId}" class="form-control mb-4 col-4" required>
            	<input type="text" th:field="*{groupId}" class="form-control mb-4 col-4" required>
-          	<select th:field="*{time}"  required>
-           		<option th:value="'09:00'" th:text="09:00"></option>
-				<option th:value="'10:00'" th:text="10:00"></option>
-				<option th:value="'11:00'" th:text="11:00"></option>
-				<option th:value="'12:00'" th:text="12:00"></option>
-				<option th:value="'13:00'" th:text="13:00"></option>
-				<option th:value="'14:00'" th:text="14:00"></option>
-				<option th:value="'15:00'" th:text="15:00"></option>
-				<option th:value="'16:00'" th:text="16:00"></option>
-				<option th:value="'17:00'" th:text="17:00"></option>
-			</select>
-			
-			<select type=date  th:field="*{time}" required>
-           		<option th:each="timeOption : ${timeList}" th:value="${timeOption.localTime}"/>
-				
+          	
+          	<select th:field="*{time}" required>
+				<option value="09:00">09:00</option>
+				<option value="10:00">10:00</option>
+				<option value="11:00">11:00</option>
+				<option value="12:00">12:00</option>
+				<option value="13:00">13:00</option>
+				<option value="14:00">14:00</option>
+				<option value="15:00">15:00</option>
+				<option value="16:00">16:00</option>
+				<option value="17:00">17:00</option>
 			</select>
             
             <button type="submit" class="btn btn-info col-2">Update Lecture</button>

@@ -29,4 +29,13 @@ public class TeacherDtoConverter {
 		}
 		return teacher;
 	}
+
+	public TeacherDTO toDTO(Teacher teacher) {
+		TeacherDTO teacherDTO = new TeacherDTO();
+		teacherDTO.setId(teacher.getId());
+		teacherDTO.setFirstName(teacher.getFirstName());
+		teacherDTO.setLastName(teacher.getLastName());
+		teacherDTO.setFacultyId(teacher.getFaculty().getId());
+		return teacherDTO;
+	}
 }

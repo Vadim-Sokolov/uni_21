@@ -15,4 +15,10 @@ public class AuditoriumDtoConverter {
 		return auditorium;
 	}
 
+	public AuditoriumDTO toDTO(Auditorium auditorium) {
+		AuditoriumDTO auditoriumDTO = new AuditoriumDTO();
+		auditoriumDTO.setId(auditorium.getId());
+		auditoriumDTO.setCapacity(auditorium.getCapacity());
+		return auditoriumDTO;
+	}
 }

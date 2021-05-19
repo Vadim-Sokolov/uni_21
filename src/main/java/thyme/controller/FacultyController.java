@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import thyme.model.Faculty;
 import thyme.model.dto.FacultyDTO;
 import thyme.service.FacultyService;
 
@@ -45,8 +44,8 @@ public class FacultyController {
 
 	@GetMapping("/showUpdateFacultyForm/{id}")
 	public String showUpdateForm(@PathVariable(value = "id") int id, Model model) {
-		Faculty faculty = facultyService.getFaculty(id).get();
-		model.addAttribute("faculty", faculty);
+		FacultyDTO facultyDTO = facultyService.getFaculty(id);
+		model.addAttribute("faculty", facultyDTO);
 		return "faculty/update_faculty";
 	}
 	

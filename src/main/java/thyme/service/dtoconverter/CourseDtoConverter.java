@@ -16,4 +16,12 @@ public class CourseDtoConverter {
 		return course;
 	}
 
+	public CourseDTO toDTO(Course course) {
+		CourseDTO courseDTO = new CourseDTO();
+		courseDTO.setId(course.getId());
+		courseDTO.setName(course.getName());
+		courseDTO.setNumberOfWeeks(course.getNumberOfWeeks());
+		courseDTO.setDescription(course.getDescription());
+		return courseDTO;
+	}
 }

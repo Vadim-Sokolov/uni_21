@@ -41,8 +41,13 @@ public class FacultyService {
 		return facultyRepository.findAll();
 	}
 
-	public Optional<Faculty> getFaculty(int id) {
-		return facultyRepository.findById(id);
+	public FacultyDTO getFaculty(int id) {
+		Optional<Faculty> optional = facultyRepository.findById(id);
+		if (optional.isPresent()) {
+			return facultyDtoConverter.toDTO(optional.get());
+		} else {
+			throw new ServiceException(INVALID_FACULTY_ID);
+		}
 	}
 
 	public void deleteFaculty(int id) {

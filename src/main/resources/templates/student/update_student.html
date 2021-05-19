@@ -11,14 +11,16 @@
 
 <body>
     <div class="container my-2">
-        <h2>Update Auditorium</h2>
+        <h2>Update Student</h2>
 
-        <form action="#" th:action="@{/saveAuditorium}" th:object="${auditorium}" method="POST">
+        <form action="#" th:action="@{/saveStudent}" th:object="${student}" method="POST">
         	<input type="hidden" th:field="*{id}" />
-            <input type="text" th:field="*{name}" class="form-control mb-4 col-4">
-            <input type="text" th:field="*{capacity}" class="form-control mb-4 col-4">
+             <input type="text" th:field="*{firstName}" class="form-control mb-4 col-4" required>
+            <input type="text" th:field="*{lastName}" class="form-control mb-4 col-4" required>
+            <input type="text" th:field="*{studentCardNumber}" class="form-control mb-4 col-4" required>
+            <input type="text" th:field="*{groupId}" class="form-control mb-4 col-4" required>
             
-            <button type="submit" class="btn btn-info col-2">Update Auditorium</button>
+            <button type="submit" class="btn btn-info col-2">Update Student</button>
         </form>
     </div>
 </body>

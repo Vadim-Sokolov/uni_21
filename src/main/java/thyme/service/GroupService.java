@@ -53,10 +53,12 @@ public class GroupService {
 	}
 
 	public GroupDTO getGroup(int id) {
-		if (groupRepository.findById(id).isEmpty()) {
+		Optional<Group> optional = groupRepository.findById(id);
+		if (optional.isPresent()) {
+			return groupDtoConverter.toDTO(optional.get());
+		} else {
 			throw new ServiceException(INVALID_GROUP_ID);
 		}
-		return groupDtoConverter.toDTO(groupRepository.findById(id).get());
 	}
 
 	public void deleteGroup(int id) {

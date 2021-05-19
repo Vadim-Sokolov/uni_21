@@ -79,10 +79,12 @@ public class LectureService {
 	}
 
 	public LectureDTO getLecture(int id) {
-		if (lectureRepository.findById(id).isEmpty()) {
+		Optional<Lecture> optional = lectureRepository.findById(id);
+		if (optional.isPresent()) {
+			return lectureDtoConverter.toDTO(optional.get());
+		} else {
 			throw new ServiceException(INVALID_LECTURE_ID);
 		}
-		return lectureDtoConverter.toDTO(lectureRepository.findById(id).get());
 	}
 
 	public void deleteLecture(int id) {

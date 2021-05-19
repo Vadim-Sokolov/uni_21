@@ -41,8 +41,13 @@ public class CourseService {
 		return courseRepository.findAll();
 	}
 
-	public Optional<Course> getCourse(int id) {
-		return courseRepository.findById(id);
+	public CourseDTO getCourse(int id) {
+		Optional<Course> optional = courseRepository.findById(id);
+		if (optional.isPresent()) {
+			return courseDtoConverter.toDTO(optional.get());
+		} else {
+			throw new ServiceException(INVALID_COURSE_ID);
+		}
 	}
 
 	public void deleteCourse(int id) {

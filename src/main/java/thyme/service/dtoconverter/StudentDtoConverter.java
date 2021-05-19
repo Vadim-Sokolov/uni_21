@@ -30,5 +30,14 @@ public class StudentDtoConverter {
 		}
 		return student;
 	}
-
+	
+	public StudentDTO toDTO(Student student) {
+		StudentDTO studentDTO = new StudentDTO();
+		studentDTO.setId(student.getId());
+		studentDTO.setFirstName(student.getFirstName());
+		studentDTO.setLastName(student.getLastName());
+		studentDTO.setStudentCardNumber(student.getStudentCardNumber());
+		studentDTO.setGroupId(student.getGroup().getId());
+		return studentDTO;
+	}
 }
