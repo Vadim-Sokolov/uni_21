@@ -11,15 +11,16 @@
 
 <body>
     <div class="container my-2">
-        <h2>Save Lecture</h2>
+        <h2>Update Lecture</h2>
 
-        <form action="#" th:action="@{/saveLecture}" th:object="${lectureDTO}" method="POST">
-           <input type="text" th:field="*{courseId}" placeholder="Course Id" class="form-control mb-4 col-4" required>
-           <input type="text" th:field="*{auditoriumId}" placeholder="Auditorium Id" class="form-control mb-4 col-4" required>
-           <input type="text" th:field="*{teacherId}" placeholder="Teacher Id" class="form-control mb-4 col-4" required>
-           <input type="text" th:field="*{groupId}" placeholder="Group Id" class="form-control mb-4 col-4" required>
-
-			<select th:field="*{time}" required>
+        <form action="#" th:action="@{/lectures/save}" th:object="${lecture}" method="POST">
+        	<input type="hidden" th:field="*{id}" />
+           	<input type="text" th:field="*{courseId}" class="form-control mb-4 col-4" required>
+           	<input type="text" th:field="*{auditoriumId}" class="form-control mb-4 col-4" required>
+           	<input type="text" th:field="*{teacherId}" class="form-control mb-4 col-4" required>
+           	<input type="text" th:field="*{groupId}" class="form-control mb-4 col-4" required>
+          	
+          	<select th:field="*{time}" required>
 				<option value="09:00">09:00</option>
 				<option value="10:00">10:00</option>
 				<option value="11:00">11:00</option>
@@ -30,8 +31,8 @@
 				<option value="16:00">16:00</option>
 				<option value="17:00">17:00</option>
 			</select>
-           
-           <button type="submit" class="btn btn-info col-2">Save Lecture</button>
+            
+            <button type="submit" class="btn btn-info col-2">Update Lecture</button>
         </form>
     </div>
 </body>

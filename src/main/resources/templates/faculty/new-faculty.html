@@ -11,14 +11,12 @@
 
 <body>
     <div class="container my-2">
-        <h2>Save Course</h2>
+        <h2>Save Faculty</h2>
 
-        <form action="#" th:action="@{/saveCourse}" th:object="${courseDTO}" method="POST">
+        <form action="#" th:action="@{/facultys/save}" th:object="${facultyDTO}" method="POST">
             <input type="text" th:field="*{name}" placeholder="Name" class="form-control mb-4 col-4" required>
-            <input type="text" th:field="*{numberOfWeeks}" placeholder="Number of weeks" class="form-control mb-4 col-4" required>
-            <input type="text" th:field="*{description}" placeholder="Description" class="form-control mb-4 col-4" required>
             
-            <button type="submit" class="btn btn-info col-2">Save Course</button>
+            <button type="submit" class="btn btn-info col-2">Save Faculty</button>
         </form>
     </div>
 </body>

@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import thyme.model.dto.StudentDTO;
 import thyme.service.StudentService;
 
 @Controller
+@RequestMapping("/students")
 public class StudentController {
 
 	private StudentService studentService;
@@ -19,19 +21,19 @@ public class StudentController {
 		this.studentService = studentService;
 	}
 
-	@GetMapping("/students")
+	@GetMapping("")
 	public String getStudents(Model model) {
 		model.addAttribute("studentList", studentService.getStudents());
 		return "student/students";
 	}
 
-	@GetMapping("/showNewStudentForm")
+	@GetMapping("/newForm")
 	public String showNewForm(Model model) {
 		model.addAttribute("studentDTO", new StudentDTO());
-		return "student/new_student";
+		return "student/new-student";
 	}
 
-	@PostMapping("/saveStudent")
+	@PostMapping("/save")
 	public String saveStudent(@ModelAttribute("studentDTO") StudentDTO studentDTO) {
 		if (studentDTO.getId() == null) {
 			studentService.addStudent(studentDTO);
@@ -41,15 +43,15 @@ public class StudentController {
 		return "redirect:/students";
 	}
 
-	@GetMapping("/showUpdateStudentForm/{id}")
+	@GetMapping("/updateForm/{id}")
 	public String showUpdateForm(@PathVariable(value = "id") int id, Model model) {
 		StudentDTO studentDTO = studentService.getStudent(id);
 		model.addAttribute("student", studentDTO);
-		return "student/update_student";
+		return "student/update-student";
 	}
 
-	@GetMapping("/deleteStudent/{id}")
-	public String deleteStudent(@PathVariable(value = "id") int id, Model model) {
+	@GetMapping("/delete/{id}")
+	public String deleteStudent(@PathVariable(value = "id") int id) {
 		studentService.deleteStudent(id);
 		return "redirect:/students";
 	}

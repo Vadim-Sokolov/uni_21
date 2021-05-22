@@ -28,7 +28,7 @@
     </table>
 
     <div class="container my-2">
-        <a th:href="@{/showNewCourseForm}" class="btn btn-primary btn-sm mb-3">Add New Course</a>
+        <a th:href="@{/courses/newForm}" class="btn btn-primary btn-sm mb-3">Add New Course</a>
         <table class="table table-primary table-bordered border-dark table-striped table-responsive-md">
             <caption>Courses</caption>
             <thead>
@@ -46,8 +46,8 @@
                     <td th:text="${course.name}"></td>
                     <td th:text="${course.numberOfWeeks}"></td>
                     <td th:text="${course.description}"></td>
-                    <td><a th:href="@{/showUpdateCourseForm/{id}(id=${course.id})}" class="btn btn-primary">Update</a>
-                        <a th:href="@{/deleteCourse/{id}(id=${course.id})}" class="btn btn-danger">Delete</a>
+                    <td><a th:href="@{/courses/updateForm/{id}(id=${course.id})}" class="btn btn-primary">Update</a>
+                        <a th:href="@{/courses/delete/{id}(id=${course.id})}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             </tbody>

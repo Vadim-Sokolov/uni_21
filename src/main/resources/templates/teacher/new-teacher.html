@@ -13,7 +13,7 @@
     <div class="container my-2">
         <h2>Save Teacher</h2>
 
-        <form action="#" th:action="@{/saveTeacher}" th:object="${teacherDTO}" method="POST">
+        <form action="#" th:action="@{/teachers/save}" th:object="${teacherDTO}" method="POST">
             <input type="text" th:field="*{firstName}" placeholder="First Name" class="form-control mb-4 col-4" required>
             <input type="text" th:field="*{lastName}" placeholder="Last Name" class="form-control mb-4 col-4" required>
             <input type="text" th:field="*{facultyId}" placeholder="Faculty Id" class="form-control mb-4 col-4" required>

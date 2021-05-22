@@ -18,6 +18,7 @@ public class AuditoriumDtoConverter {
 	public AuditoriumDTO toDTO(Auditorium auditorium) {
 		AuditoriumDTO auditoriumDTO = new AuditoriumDTO();
 		auditoriumDTO.setId(auditorium.getId());
+		auditoriumDTO.setName(auditorium.getName());
 		auditoriumDTO.setCapacity(auditorium.getCapacity());
 		return auditoriumDTO;
 	}

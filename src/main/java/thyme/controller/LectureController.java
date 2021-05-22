@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import thyme.model.dto.LectureDTO;
 import thyme.service.LectureService;
 
 @Controller
+@RequestMapping("/lectures")
 public class LectureController {
 
 	private LectureService lectureService;
@@ -19,19 +21,19 @@ public class LectureController {
 		this.lectureService = lectureService;
 	}
 
-	@GetMapping("/lectures")
+	@GetMapping("")
 	public String getLectures(Model model) {
 		model.addAttribute("lectureList", lectureService.getLectures());
 		return "lecture/lectures";
 	}
 
-	@GetMapping("/showNewLectureForm")
+	@GetMapping("/newForm")
 	public String showNewForm(Model model) {
 		model.addAttribute("lectureDTO", new LectureDTO());
-		return "lecture/new_lecture";
+		return "lecture/new-lecture";
 	}
 
-	@PostMapping("/saveLecture")
+	@PostMapping("/save")
 	public String saveLecture(@ModelAttribute("lectureDTO") LectureDTO lectureDTO) {
 		if (lectureDTO.getId() == null) {
 			lectureService.addLecture(lectureDTO);
@@ -41,15 +43,15 @@ public class LectureController {
 		return "redirect:/lectures";
 	}
 
-	@GetMapping("/showUpdateLectureForm/{id}")
+	@GetMapping("/updateForm/{id}")
 	public String showUpdateForm(@PathVariable(value = "id") int id, Model model) {
 		LectureDTO lectureDTO = lectureService.getLecture(id);
 		model.addAttribute("lecture", lectureDTO);
-		return "lecture/update_lecture";
+		return "lecture/update-lecture";
 	}
 
-	@GetMapping("/deleteLecture/{id}")
-	public String deleteLecture(@PathVariable(value = "id") int id, Model model) {
+	@GetMapping("/delete/{id}")
+	public String deleteLecture(@PathVariable(value = "id") int id) {
 		lectureService.deleteLecture(id);
 		return "redirect:/lectures";
 	}

@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import thyme.model.dto.AuditoriumDTO;
 import thyme.service.AuditoriumService;
 
 @Controller
+@RequestMapping("/auditoriums")
 public class AuditoriumController {
 
 	private AuditoriumService auditoriumService;
@@ -19,20 +21,20 @@ public class AuditoriumController {
 		this.auditoriumService = auditoriumService;
 	}
 
-	@GetMapping("/auditoriums")
+	@GetMapping("")
 	public String getAuditoriums(Model model) {
 
 		model.addAttribute("auditoriumList", auditoriumService.getAuditoriums());
 		return "auditorium/auditoriums";
 	}
 
-	@GetMapping("/showNewAuditoriumForm")
+	@GetMapping("/newForm")
 	public String showNewForm(Model model) {
 		model.addAttribute("auditoriumDTO", new AuditoriumDTO());
-		return "auditorium/new_auditorium";
+		return "auditorium/new-auditorium";
 	}
 
-	@PostMapping("/saveAuditorium")
+	@PostMapping("/save")
 	public String saveAuditorium(@ModelAttribute("auditoriumDTO") AuditoriumDTO auditoriumDTO) {
 		if (auditoriumDTO.getId() == null) {
 			auditoriumService.addAuditorium(auditoriumDTO);
@@ -42,15 +44,15 @@ public class AuditoriumController {
 		return "redirect:/auditoriums";
 	}
 
-	@GetMapping("/showUpdateAuditoriumForm/{id}")
+	@GetMapping("/updateForm/{id}")
 	public String showUpdateForm(@PathVariable(value = "id") int id, Model model) {
 		AuditoriumDTO auditoriumDTO = auditoriumService.getAuditorium(id);
 		model.addAttribute("auditorium", auditoriumDTO);
-		return "auditorium/update_auditorium";
+		return "auditorium/update-auditorium";
 	}
 	
-	@GetMapping("/deleteAuditorium/{id}")
-	public String deleteAuditorium(@PathVariable(value = "id") int id, Model model) {
+	@GetMapping("/delete/{id}")
+	public String deleteAuditorium(@PathVariable(value = "id") int id) {
 		auditoriumService.deleteAuditorium(id);
 		return "redirect:/auditoriums";
 	}

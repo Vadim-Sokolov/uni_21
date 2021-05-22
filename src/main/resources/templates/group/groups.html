@@ -28,7 +28,7 @@
     </table>
 
     <div class="container my-2">
-        <a th:href="@{/showNewGroupForm}" class="btn btn-primary btn-sm mb-3">Add New Group</a>
+        <a th:href="@{/groups/newForm}" class="btn btn-primary btn-sm mb-3">Add New Group</a>
         <table class="table table-primary table-bordered border-dark table-striped table-responsive-md">
             <caption>Groups</caption>
             <thead>
@@ -44,8 +44,8 @@
                     <td th:text="${group.id}"></td>
                     <td th:text="${group.name}"></td>
                     <td th:text="${group.faculty.name}"></td>
-                    <td><a th:href="@{/showUpdateGroupForm/{id}(id=${group.id})}" class="btn btn-primary">Update</a>
-                        <a th:href="@{/deleteGroup/{id}(id=${group.id})}" class="btn btn-danger">Delete</a>
+                    <td><a th:href="@{/groups/updateForm/{id}(id=${group.id})}" class="btn btn-primary">Update</a>
+                        <a th:href="@{/groups/delete/{id}(id=${group.id})}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             </tbody>

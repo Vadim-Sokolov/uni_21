@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import thyme.model.dto.GroupDTO;
 import thyme.service.GroupService;
 
 @Controller
+@RequestMapping("/groups")
 public class GroupController {
 
 	private GroupService groupService;
@@ -19,20 +21,20 @@ public class GroupController {
 		this.groupService = groupService;
 	}
 
-	@GetMapping("/groups")
+	@GetMapping("")
 	public String getGroups(Model model) {
 
 		model.addAttribute("groupList", groupService.getGroups());
 		return "group/groups";
 	}
 
-	@GetMapping("/showNewGroupForm")
+	@GetMapping("/newForm")
 	public String showNewForm(Model model) {
 		model.addAttribute("groupDTO", new GroupDTO());
-		return "group/new_group";
+		return "group/new-group";
 	}
 
-	@PostMapping("/saveGroup")
+	@PostMapping("/save")
 	public String saveGroup(@ModelAttribute("groupDTO") GroupDTO groupDTO) {
 		if (groupDTO.getId() == null) {
 			groupService.addGroup(groupDTO);
@@ -42,15 +44,15 @@ public class GroupController {
 		return "redirect:/groups";
 	}
 
-	@GetMapping("/showUpdateGroupForm/{id}")
+	@GetMapping("/updateForm/{id}")
 	public String showUpdateForm(@PathVariable(value = "id") int id, Model model) {
 		GroupDTO groupDTO = groupService.getGroup(id);
 		model.addAttribute("group", groupDTO);
-		return "group/update_group";
+		return "group/update-group";
 	}
 	
-	@GetMapping("/deleteGroup/{id}")
-	public String deleteGroup(@PathVariable(value = "id") int id, Model model) {
+	@GetMapping("/delete/{id}")
+	public String deleteGroup(@PathVariable(value = "id") int id) {
 		groupService.deleteGroup(id);
 		return "redirect:/groups";
 	}

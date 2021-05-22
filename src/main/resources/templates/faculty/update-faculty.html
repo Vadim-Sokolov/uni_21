@@ -11,13 +11,13 @@
 
 <body>
     <div class="container my-2">
-        <h2>Save Auditorium</h2>
+        <h2>Update Faculty</h2>
 
-        <form action="#" th:action="@{/saveAuditorium}" th:object="${auditoriumDTO}" method="POST">
-            <input type="text" th:field="*{name}" placeholder="Name" class="form-control mb-4 col-4" required>
-            <input type="text" th:field="*{capacity}" placeholder="Capacity" class="form-control mb-4 col-4" required>
+        <form action="#" th:action="@{/facultys/save}" th:object="${faculty}" method="POST">
+        	<input type="hidden" th:field="*{id}" />
+            <input type="text" th:field="*{name}" class="form-control mb-4 col-4">
             
-            <button type="submit" class="btn btn-info col-2">Save Auditorium</button>
+            <button type="submit" class="btn btn-info col-2">Update Faculty</button>
         </form>
     </div>
 </body>

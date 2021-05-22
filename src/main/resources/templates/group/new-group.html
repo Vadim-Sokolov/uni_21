@@ -11,12 +11,13 @@
 
 <body>
     <div class="container my-2">
-        <h2>Save Faculty</h2>
+        <h2>Save Group</h2>
 
-        <form action="#" th:action="@{/saveFaculty}" th:object="${facultyDTO}" method="POST">
+        <form action="#" th:action="@{/groups/save}" th:object="${groupDTO}" method="POST">
             <input type="text" th:field="*{name}" placeholder="Name" class="form-control mb-4 col-4" required>
+            <input type="text" th:field="*{facultyId}" placeholder="Faculty Id" class="form-control mb-4 col-4" required>
             
-            <button type="submit" class="btn btn-info col-2">Save Faculty</button>
+            <button type="submit" class="btn btn-info col-2">Save Group</button>
         </form>
     </div>
 </body>

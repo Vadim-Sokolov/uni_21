@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import thyme.model.dto.CourseDTO;
 import thyme.service.CourseService;
 
 @Controller
+@RequestMapping("/courses")
 public class CourseController {
 
 	private CourseService courseService;
@@ -19,20 +21,20 @@ public class CourseController {
 		this.courseService = courseService;
 	}
 
-	@GetMapping("/courses")
+	@GetMapping("")
 	public String getCourses(Model model) {
 
 		model.addAttribute("courseList", courseService.getCourses());
 		return "course/courses";
 	}
 
-	@GetMapping("/showNewCourseForm")
+	@GetMapping("/newForm")
 	public String showNewForm(Model model) {
 		model.addAttribute("courseDTO", new CourseDTO());
-		return "course/new_course";
+		return "course/new-course";
 	}
 
-	@PostMapping("/saveCourse")
+	@PostMapping("/save")
 	public String saveCourse(@ModelAttribute("courseDTO") CourseDTO courseDTO) {
 		if (courseDTO.getId() == null) {
 			courseService.addCourse(courseDTO);
@@ -42,15 +44,15 @@ public class CourseController {
 		return "redirect:/courses";
 	}
 
-	@GetMapping("/showUpdateCourseForm/{id}")
+	@GetMapping("/updateForm/{id}")
 	public String showUpdateForm(@PathVariable(value = "id") int id, Model model) {
 		CourseDTO courseDTO = courseService.getCourse(id);
 		model.addAttribute("course", courseDTO);
-		return "course/update_course";
+		return "course/update-course";
 	}
 	
-	@GetMapping("/deleteCourse/{id}")
-	public String deleteCourse(@PathVariable(value = "id") int id, Model model) {
+	@GetMapping("/delete/{id}")
+	public String deleteCourse(@PathVariable(value = "id") int id) {
 		courseService.deleteCourse(id);
 		return "redirect:/courses";
 	}

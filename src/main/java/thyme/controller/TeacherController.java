@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import thyme.model.dto.TeacherDTO;
 import thyme.service.TeacherService;
 
 @Controller
+@RequestMapping("/teachers")
 public class TeacherController {
 
 	private TeacherService teacherService;
@@ -19,19 +21,19 @@ public class TeacherController {
 		this.teacherService = teacherService;
 	}
 
-	@GetMapping("/teachers")
+	@GetMapping("")
 	public String getTeachers(Model model) {
 		model.addAttribute("teacherList", teacherService.getTeachers());
 		return "teacher/teachers";
 	}
 
-	@GetMapping("/showNewTeacherForm")
+	@GetMapping("/newForm")
 	public String showNewForm(Model model) {
 		model.addAttribute("teacherDTO", new TeacherDTO());
-		return "teacher/new_teacher";
+		return "teacher/new-teacher";
 	}
 
-	@PostMapping("/saveTeacher")
+	@PostMapping("/save")
 	public String saveTeacher(@ModelAttribute("teacherDTO") TeacherDTO teacherDTO) {
 		if (teacherDTO.getId() == null) {
 			teacherService.addTeacher(teacherDTO);
@@ -41,15 +43,15 @@ public class TeacherController {
 		return "redirect:/teachers";
 	}
 
-	@GetMapping("/showUpdateTeacherForm/{id}")
+	@GetMapping("/updateForm/{id}")
 	public String showUpdateForm(@PathVariable(value = "id") int id, Model model) {
 		TeacherDTO teacherDTO = teacherService.getTeacher(id);
 		model.addAttribute("teacher", teacherDTO);
-		return "teacher/update_teacher";
+		return "teacher/update-teacher";
 	}
 
-	@GetMapping("/deleteTeacher/{id}")
-	public String deleteTeacher(@PathVariable(value = "id") int id, Model model) {
+	@GetMapping("/delete/{id}")
+	public String deleteTeacher(@PathVariable(value = "id") int id) {
 		teacherService.deleteTeacher(id);
 		return "redirect:/teachers";
 	}

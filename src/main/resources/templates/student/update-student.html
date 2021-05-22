@@ -13,7 +13,7 @@
     <div class="container my-2">
         <h2>Update Student</h2>
 
-        <form action="#" th:action="@{/saveStudent}" th:object="${student}" method="POST">
+        <form action="#" th:action="@{/students/save}" th:object="${student}" method="POST">
         	<input type="hidden" th:field="*{id}" />
              <input type="text" th:field="*{firstName}" class="form-control mb-4 col-4" required>
             <input type="text" th:field="*{lastName}" class="form-control mb-4 col-4" required>
