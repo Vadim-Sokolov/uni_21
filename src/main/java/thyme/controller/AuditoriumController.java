@@ -44,15 +44,15 @@ public class AuditoriumController {
 		return "redirect:/auditoriums";
 	}
 
-	@GetMapping("/updateForm/{id}")
-	public String showUpdateForm(@PathVariable(value = "id") int id, Model model) {
+	@GetMapping("/updateForm")
+	public String showUpdateForm(Integer id, Model model) {
 		AuditoriumDTO auditoriumDTO = auditoriumService.getAuditorium(id);
 		model.addAttribute("auditorium", auditoriumDTO);
 		return "auditorium/update-auditorium";
 	}
 	
-	@GetMapping("/delete/{id}")
-	public String deleteAuditorium(@PathVariable(value = "id") int id) {
+	@GetMapping("/delete")
+	public String deleteAuditorium(Integer id) {
 		auditoriumService.deleteAuditorium(id);
 		return "redirect:/auditoriums";
 	}
