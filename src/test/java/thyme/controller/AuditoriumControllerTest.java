@@ -80,13 +80,13 @@ class AuditoriumControllerTest {
 		expected.setName("A2");
 		expected.setCapacity(80);
 
-		AuditoriumDTO a = new AuditoriumDTO();
-		a.setId(1);
-		a.setName("A2");
-		a.setCapacity(80);
+		AuditoriumDTO forUpdate = new AuditoriumDTO();
+		forUpdate.setId(1);
+		forUpdate.setName("A2");
+		forUpdate.setCapacity(80);
 
 		// When
-		controller.saveAuditorium(a);
+		controller.saveAuditorium(forUpdate);
 
 		AuditoriumDTO actual = service.getAuditorium(1);
 

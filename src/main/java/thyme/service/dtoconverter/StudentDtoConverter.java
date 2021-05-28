@@ -20,6 +20,7 @@ public class StudentDtoConverter {
 
 	public Student toEntity(StudentDTO studentDTO) {
 		Student student = new Student();
+		student.setId(studentDTO.getId());
 		student.setFirstName(studentDTO.getFirstName());
 		student.setLastName(studentDTO.getLastName());
 		student.setStudentCardNumber(studentDTO.getStudentCardNumber());

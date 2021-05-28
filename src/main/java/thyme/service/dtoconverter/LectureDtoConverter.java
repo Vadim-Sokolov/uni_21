@@ -33,6 +33,8 @@ public class LectureDtoConverter {
 
 	public Lecture toEntity(LectureDTO lectureDTO) {
 		Lecture lecture = new Lecture();
+		
+		lecture.setId(lectureDTO.getId());
 
 		Optional<Auditorium> auditoriumSearchResult = auditoriumRepository.findById(lectureDTO.getAuditoriumId());
 		if (auditoriumSearchResult.isPresent()) {

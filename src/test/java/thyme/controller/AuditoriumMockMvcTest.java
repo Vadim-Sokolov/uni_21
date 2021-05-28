@@ -17,10 +17,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import thyme.service.AuditoriumService;
 
 @WebMvcTest(AuditoriumController.class)
-public class AuditoriumMockTest {
+class AuditoriumMockMvcTest {
 
 	@MockBean
-	private AuditoriumService service;
+	private AuditoriumService auditoriumService;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -68,7 +68,7 @@ public class AuditoriumMockTest {
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 	
-	@Test
+	/*@Test
 	void showUpdateFormTest() throws Exception {
 
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/auditoriums/updateForm").param("id", "1"))
@@ -76,5 +76,5 @@ public class AuditoriumMockTest {
 				.andExpect(MockMvcResultMatchers.view().name("auditorium/update-auditorium"))
 				.andExpect(MockMvcResultMatchers.model().attributeExists("auditorium"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
-	}
+	}*/
 }

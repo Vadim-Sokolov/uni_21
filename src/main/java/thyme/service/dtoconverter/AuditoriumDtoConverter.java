@@ -10,6 +10,7 @@ public class AuditoriumDtoConverter {
 
 	public Auditorium toEntity(AuditoriumDTO auditoriumDTO) {
 		Auditorium auditorium = new Auditorium();
+		auditorium.setId(auditoriumDTO.getId());
 		auditorium.setName(auditoriumDTO.getName());
 		auditorium.setCapacity(auditoriumDTO.getCapacity());
 		return auditorium;

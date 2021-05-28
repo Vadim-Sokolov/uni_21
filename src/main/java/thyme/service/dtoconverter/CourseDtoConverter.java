@@ -10,6 +10,7 @@ public class CourseDtoConverter {
 
 	public Course toEntity(CourseDTO courseDTO) {
 		Course course = new Course();
+		course.setId(courseDTO.getId());
 		course.setName(courseDTO.getName());
 		course.setNumberOfWeeks(courseDTO.getNumberOfWeeks());
 		course.setDescription(courseDTO.getDescription());

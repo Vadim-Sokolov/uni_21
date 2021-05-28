@@ -20,6 +20,7 @@ public class GroupDtoConverter {
 
 	public Group toEntity(GroupDTO groupDTO) {
 		Group group = new Group();
+		group.setId(groupDTO.getId());
 		group.setName(groupDTO.getName());
 
 		Optional<Faculty> facultySearchResult = facultyRepository.findById(groupDTO.getFacultyId());

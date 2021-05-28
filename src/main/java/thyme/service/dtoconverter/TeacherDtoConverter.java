@@ -20,6 +20,9 @@ public class TeacherDtoConverter {
 
 	public Teacher toEntity(TeacherDTO teacherDTO) {
 		Teacher teacher = new Teacher();
+		if (teacherDTO.getId() != null) {
+			teacher.setId(teacherDTO.getId());
+		}
 		teacher.setFirstName(teacherDTO.getFirstName());
 		teacher.setLastName(teacherDTO.getLastName());
 

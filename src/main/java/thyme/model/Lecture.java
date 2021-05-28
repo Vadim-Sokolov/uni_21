@@ -147,8 +147,8 @@ public class Lecture {
 
 	@Override
 	public String toString() {
-		return "Lecture [Course= " + course.getName() + ", Auditorium= " + auditorium.getName() + ", Teacher= "
-				+ teacher.getFirstName() + " " + teacher.getLastName() + ", Group= " + group.getName() + ", Time= "
-				+ time + "]";
+		return "Lecture [id=" + id + ", course=" + course.getName() + ", auditorium=" + auditorium.getName()
+				+ ", teacher=" + teacher.getFirstName() + " " + teacher.getLastName() + ", group=" + group.getName()
+				+ ", time=" + time + "]";
 	}
 }

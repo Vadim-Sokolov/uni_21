@@ -10,10 +10,13 @@ public class FacultyDtoConverter {
 
 	public Faculty toEntity(FacultyDTO facultyDTO) {
 		Faculty faculty = new Faculty();
+		if (facultyDTO.getId() != null) {
+			faculty.setId(facultyDTO.getId());
+		}
 		faculty.setName(facultyDTO.getName());
 		return faculty;
 	}
-	
+
 	public FacultyDTO toDTO(Faculty faculty) {
 		FacultyDTO facultyDTO = new FacultyDTO();
 		facultyDTO.setId(faculty.getId());
