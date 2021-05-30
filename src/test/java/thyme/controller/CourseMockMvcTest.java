@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import thyme.controller.thyme.CourseController;
 import thyme.service.CourseService;
 
 @WebMvcTest(CourseController.class)

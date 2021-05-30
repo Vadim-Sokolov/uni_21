@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import thyme.controller.thyme.StudentController;
 import thyme.model.Student;
 import thyme.model.dto.StudentDTO;
 import thyme.service.GroupService;

@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import thyme.controller.thyme.AuditoriumController;
 import thyme.model.dto.AuditoriumDTO;
 
 import thyme.service.AuditoriumService;

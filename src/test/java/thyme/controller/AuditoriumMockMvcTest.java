@@ -1,5 +1,7 @@
 package thyme.controller;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,7 +16,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import thyme.controller.thyme.AuditoriumController;
 import thyme.service.AuditoriumService;
+import thyme.service.ServiceException;
 
 @WebMvcTest(AuditoriumController.class)
 class AuditoriumMockMvcTest {
@@ -68,13 +72,23 @@ class AuditoriumMockMvcTest {
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 	
-	/*@Test
+	@Test
 	void showUpdateFormTest() throws Exception {
 
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/auditoriums/updateForm").param("id", "1"))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/auditoriums/updateForm?id=1"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.view().name("auditorium/update-auditorium"))
 				.andExpect(MockMvcResultMatchers.model().attributeExists("auditorium"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
-	}*/
+	}
+	
+	@Test
+	void deleteAuditoriumTest() throws Exception {
+
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/auditoriums/delete?id=1"))
+				.andExpect(MockMvcResultMatchers.status().isFound())
+				//.andExpect(MockMvcResultMatchers.view().name("auditorium/update-auditorium"))
+				//.andExpect(MockMvcResultMatchers.model().attributeExists("auditorium"))
+				.andDo(MockMvcResultHandlers.print()).andReturn();
+	}
 }

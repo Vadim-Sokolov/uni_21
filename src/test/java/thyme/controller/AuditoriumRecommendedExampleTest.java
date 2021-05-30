@@ -5,6 +5,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import thyme.controller.thyme.AuditoriumController;
 import thyme.service.AuditoriumService;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

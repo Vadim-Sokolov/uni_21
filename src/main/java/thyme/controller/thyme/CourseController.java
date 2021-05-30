@@ -1,4 +1,4 @@
-package thyme.controller;
+package thyme.controller.thyme;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

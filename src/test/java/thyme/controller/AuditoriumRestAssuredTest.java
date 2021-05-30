@@ -6,6 +6,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import thyme.controller.thyme.AuditoriumController;
 import thyme.model.Auditorium;
 import thyme.service.AuditoriumService;
 

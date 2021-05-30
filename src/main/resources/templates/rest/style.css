@@ -1,0 +1,20 @@
+caption {
+	caption-side: top;
+	background: #2e9ce6;
+	padding: 10px;
+	color: #000000;
+	font-size: 1.5em;
+	text-align: center;
+}
+
+.table {
+   text-align: center;
+}
+
+h1 {
+  background: #2e9ce6;
+	padding: 10px;
+	color: #000000;
+	font-size: 1.5em;
+	text-align: center;
+}
