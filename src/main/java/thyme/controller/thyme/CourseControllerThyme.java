@@ -13,11 +13,11 @@ import thyme.service.CourseService;
 
 @Controller
 @RequestMapping("/courses")
-public class CourseController {
+public class CourseControllerThyme {
 
 	private CourseService courseService;
 
-	public CourseController(CourseService courseService) {
+	public CourseControllerThyme(CourseService courseService) {
 		this.courseService = courseService;
 	}
 

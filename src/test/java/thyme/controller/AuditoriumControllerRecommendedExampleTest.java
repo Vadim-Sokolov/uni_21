@@ -5,7 +5,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import thyme.controller.thyme.AuditoriumController;
+import thyme.controller.thyme.AuditoriumControllerThyme;
 import thyme.service.AuditoriumService;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -15,8 +15,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 
-@WebMvcTest(AuditoriumController.class)
-public class AuditoriumRecommendedExampleTest {
+@WebMvcTest(AuditoriumControllerThyme.class)
+public class AuditoriumControllerRecommendedExampleTest {
 
     @MockBean
     private AuditoriumService service;

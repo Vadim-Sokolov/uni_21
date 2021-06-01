@@ -1,4 +1,4 @@
-package thyme.controller;
+package thyme.controller.rest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalTime;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import thyme.controller.thyme.LectureControllerThyme;
+import thyme.controller.DbConnector;
 import thyme.model.Lecture;
 import thyme.model.dto.LectureDTO;
 import thyme.service.AuditoriumService;
@@ -31,10 +32,10 @@ import thyme.service.dtoconverter.TeacherDtoConverter;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-class LectureControllerTest {
+class LectureControllerRestTest {
 
 	@Autowired
-	private LectureControllerThyme lectureControllerThyme;
+	private LectureControllerRest lectureController;
 
 	@Autowired
 	private LectureService lectureService;
@@ -102,7 +103,7 @@ class LectureControllerTest {
 		a.setTime(LocalTime.of(12, 00));
 
 		// When
-		lectureControllerThyme.saveLecture(a);
+		lectureController.addLecture(a);
 
 		Lecture actual = lectureDtoConverter.toEntity(lectureService.getLecture(4));
 
@@ -133,7 +134,7 @@ class LectureControllerTest {
 		a.setTime(LocalTime.of(14, 00));
 
 		// When
-		lectureControllerThyme.saveLecture(a);
+		lectureController.updateLecture(a, 1);
 
 		Lecture actual = lectureDtoConverter.toEntity(lectureService.getLecture(1));
 
@@ -149,11 +150,39 @@ class LectureControllerTest {
 		LectureDTO beforeDeletion = lectureService.getLecture(3);
 
 		// When
-		lectureControllerThyme.deleteLecture(3);
+		lectureController.deleteLecture(3);
 
 		// Then
 		assertNotNull(beforeDeletion);
 		assertThrows(ServiceException.class, () -> lectureService.getLecture(3));
 	}
 
+	@Test
+	void getLecturesTest() {
+		// Given
+		List<Lecture> list = lectureController.getLectures();
+
+		// When
+
+		// Then
+		assertTrue(list.size() >= 2);
+	}
+
+	@Test
+	void getOneTest() {
+		// Given
+		LectureDTO expected = new LectureDTO();
+		expected.setId(2);
+		expected.setAuditoriumId(1);
+		expected.setCourseId(1);
+		expected.setGroupId(1);
+		expected.setTeacherId(1);
+		expected.setTime(LocalTime.of(10, 00));
+
+		// When
+		LectureDTO actual = lectureController.getLecture(2);
+
+		// Then
+		assertEquals(expected, actual);
+	}
 }

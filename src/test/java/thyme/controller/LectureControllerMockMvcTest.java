@@ -14,14 +14,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import thyme.controller.thyme.StudentController;
-import thyme.service.StudentService;
+import thyme.controller.thyme.LectureControllerThyme;
+import thyme.service.LectureService;
 
-@WebMvcTest(StudentController.class)
-class StudentMockMvcTest {
+@WebMvcTest(LectureControllerThyme.class)
+class LectureControllerMockMvcTest {
 
 	@MockBean
-	private StudentService studentService;
+	private LectureService lectureService;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -33,39 +33,39 @@ class StudentMockMvcTest {
 		Connection connection = dbc.getConnection();
 		System.out.println("Connection obtained");
 		Statement statement = connection.createStatement();
-		statement.execute("DROP TABLE IF EXISTS student CASCADE;");
+		statement.execute("DROP TABLE IF EXISTS lecture CASCADE;");
 		System.out.println("TABLE DROPPED");
-		statement.execute("create TABLE student" + "(id serial primary key," + "student_card_number VARCHAR (200),"
-				+ "firstname VARCHAR (200), lastname VARCHAR (200), group_id int);");
+		statement.execute("create TABLE lecture" + "(id serial primary key," + "course_id int, auditorium_id int,"
+				+ "teacher_id int, group_id int, time time);");
 		System.out.println("TABLE CREATED");
 
 		statement.execute(
-				"insert into student (student_card_number, firstname, lastname, group_id) values ('aboo', 'May', 'Fair', 1);");
+				"insert into lecture (course_id, auditorium_id, teacher_id, group_id, time) values (1, 1, 1, 1, '09:00');");
 		statement.execute(
-				"insert into student (student_card_number, firstname, lastname, group_id) values ('zaboo', 'June', 'Bay', 1);");
+				"insert into lecture (course_id, auditorium_id, teacher_id, group_id, time) values (1, 1, 1, 1, '10:00');");
 		statement.execute(
-				"insert into student (student_card_number, firstname, lastname, group_id) values ('magoo', 'July', 'Slim', 1);");
-		System.out.println("STUDENTS INSERTED");
+				"insert into lecture (course_id, auditorium_id, teacher_id, group_id, time) values (1, 1, 1, 1, '11:00');");
+		System.out.println("LECTURES INSERTED");
 
 		connection.close();
 	}
 
 	@Test
-	void getStudentsTest() throws Exception {
+	void getLecturesTest() throws Exception {
 
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/students")).andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.view().name("student/students"))
-				.andExpect(MockMvcResultMatchers.model().attributeExists("studentList"))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/lectures")).andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.view().name("lecture/lectures"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("lectureList"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 
 	@Test
 	void showNewFormTest() throws Exception {
 
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/students/newForm"))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/lectures/newForm"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.view().name("student/new-student"))
-				.andExpect(MockMvcResultMatchers.model().attributeExists("studentDTO"))
+				.andExpect(MockMvcResultMatchers.view().name("lecture/new-lecture"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("lectureDTO"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 }

@@ -1,10 +1,11 @@
-package thyme.controller;
+package thyme.controller.rest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import thyme.controller.thyme.FacultyControllerThyme;
+import thyme.controller.DbConnector;
 import thyme.model.Faculty;
 import thyme.model.dto.FacultyDTO;
 import thyme.service.FacultyService;
@@ -22,10 +23,10 @@ import thyme.service.dtoconverter.FacultyDtoConverter;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-class FacultyControllerTest {
+class FacultyControllerRestTest {
 
 	@Autowired
-	private FacultyControllerThyme facultyControllerThyme;
+	private FacultyControllerRest facultyController;
 	@Autowired
 	private FacultyService facultyService;
 	@Autowired
@@ -63,7 +64,7 @@ class FacultyControllerTest {
 		a.setName("testFaculty");
 
 		// When
-		facultyControllerThyme.saveFaculty(a);
+		facultyController.addFaculty(a);
 
 		Faculty actual = facultyDtoConverter.toEntity(facultyService.getFaculty(4));
 
@@ -86,7 +87,7 @@ class FacultyControllerTest {
 		a.setName("A2");
 
 		// When
-		facultyControllerThyme.saveFaculty(a);
+		facultyController.updateFaculty(a, 1);
 
 		Faculty actual = facultyDtoConverter.toEntity(facultyService.getFaculty(1));
 
@@ -102,11 +103,34 @@ class FacultyControllerTest {
 		FacultyDTO beforeDeletion = facultyService.getFaculty(3);
 
 		// When
-		facultyControllerThyme.deleteFaculty(3);
+		facultyController.deleteFaculty(3);
 
 		// Then
 		assertNotNull(beforeDeletion);
 		assertThrows(ServiceException.class, () -> facultyService.getFaculty(3));
 	}
+	@Test
+	void getFacultysTest() {
+		// Given
+		List<Faculty> list = facultyController.getFacultys();
 
+		// When
+
+		// Then
+		assertTrue(list.size() >= 2);
+	}
+
+	@Test
+	void getOneTest() {
+		// Given
+		FacultyDTO expected = new FacultyDTO();
+		expected.setId(2);
+		expected.setName("Faculty2");
+
+		// When
+		FacultyDTO actual = facultyController.getFaculty(2);
+
+		// Then
+		assertEquals(expected, actual);
+	}
 }

@@ -1,10 +1,11 @@
-package thyme.controller;
+package thyme.controller.rest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import thyme.controller.thyme.TeacherControllerThyme;
+import thyme.controller.DbConnector;
 import thyme.model.Teacher;
 import thyme.model.dto.TeacherDTO;
 import thyme.service.FacultyService;
@@ -24,10 +25,10 @@ import thyme.service.dtoconverter.TeacherDtoConverter;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-class TeacherControllerTest {
+class TeacherControllerRestTest {
 
 	@Autowired
-	private TeacherControllerThyme teacherControllerThyme;
+	private TeacherControllerRest teacherController;
 
 	@Autowired
 	private TeacherService teacherService;
@@ -38,7 +39,7 @@ class TeacherControllerTest {
 	private FacultyDtoConverter facultyDtoConverter;
 	@Autowired
 	private TeacherDtoConverter teacherDtoConverter;
-	
+
 	@BeforeAll
 	public static void init() throws ClassNotFoundException, SQLException {
 
@@ -76,7 +77,7 @@ class TeacherControllerTest {
 		a.setFacultyId(1);
 
 		// When
-		teacherControllerThyme.saveTeacher(a);
+		teacherController.addTeacher(a);
 
 		Teacher actual = teacherDtoConverter.toEntity(teacherService.getTeacher(4));
 
@@ -103,7 +104,7 @@ class TeacherControllerTest {
 		a.setFacultyId(1);
 
 		// When
-		teacherControllerThyme.saveTeacher(a);
+		teacherController.updateTeacher(a, 1);
 
 		Teacher actual = teacherDtoConverter.toEntity(teacherService.getTeacher(1));
 
@@ -119,11 +120,37 @@ class TeacherControllerTest {
 		TeacherDTO beforeDeletion = teacherService.getTeacher(3);
 
 		// When
-		teacherControllerThyme.deleteTeacher(3);
+		teacherController.deleteTeacher(3);
 
 		// Then
 		assertNotNull(beforeDeletion);
 		assertThrows(ServiceException.class, () -> teacherService.getTeacher(3));
 	}
 
+	@Test
+	void getTeachersTest() {
+		// Given
+		List<Teacher> list = teacherController.getTeachers();
+
+		// When
+
+		// Then
+		assertTrue(list.size() >= 2);
+	}
+
+	@Test
+	void getOneTest() {
+		// Given
+		TeacherDTO expected = new TeacherDTO();
+		expected.setId(2);
+		expected.setFirstName("Skip");
+		expected.setLastName("Dub");
+		expected.setFacultyId(1);
+
+		// When
+		TeacherDTO actual = teacherController.getTeacher(2);
+
+		// Then
+		assertEquals(expected, actual);
+	}
 }

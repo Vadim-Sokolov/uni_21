@@ -14,11 +14,11 @@ import thyme.service.AuditoriumService;
 
 @Controller
 @RequestMapping("/auditoriums")
-public class AuditoriumController {
+public class AuditoriumControllerThyme {
 
 	private AuditoriumService auditoriumService;
 
-	public AuditoriumController(AuditoriumService auditoriumService) {
+	public AuditoriumControllerThyme(AuditoriumService auditoriumService) {
 		this.auditoriumService = auditoriumService;
 	}
 

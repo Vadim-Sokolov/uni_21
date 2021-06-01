@@ -1,8 +1,9 @@
-package thyme.controller;
+package thyme.controller.rest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.*;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,18 +12,18 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import thyme.controller.thyme.AuditoriumControllerThyme;
+import thyme.controller.DbConnector;
+import thyme.model.Auditorium;
 import thyme.model.dto.AuditoriumDTO;
-
 import thyme.service.AuditoriumService;
 import thyme.service.ServiceException;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-class AuditoriumControllerTest {
+class AuditoriumControllerRestTest {
 
 	@Autowired
-	private AuditoriumControllerThyme controller;
+	private AuditoriumControllerRest controller;
 	@Autowired 
 	private AuditoriumService service;
 
@@ -63,7 +64,7 @@ class AuditoriumControllerTest {
 		a.setCapacity(100);
 
 		// When
-		controller.saveAuditorium(a);
+		controller.addAuditorium(a);
 
 		AuditoriumDTO actual = service.getAuditorium(4);
 
@@ -87,7 +88,7 @@ class AuditoriumControllerTest {
 		forUpdate.setCapacity(80);
 
 		// When
-		controller.saveAuditorium(forUpdate);
+		controller.updateAuditorium(forUpdate, 1);
 
 		AuditoriumDTO actual = service.getAuditorium(1);
 
@@ -108,5 +109,31 @@ class AuditoriumControllerTest {
 		// Then
 		assertNotNull(beforeDeletion);
 		assertThrows(ServiceException.class, () -> service.getAuditorium(3));
+	}
+
+	@Test
+	void getAuditoriumsTest() {
+		// Given
+		List<Auditorium> list = controller.getAuditoriums();
+
+		// When
+
+		// Then
+		assertTrue(list.size() >= 2);
+	}
+
+	@Test
+	void getOneTest() {
+		// Given
+		AuditoriumDTO expected = new AuditoriumDTO();
+		expected.setId(2);
+		expected.setName("B1");
+		expected.setCapacity(30);
+
+		// When
+		AuditoriumDTO actual = controller.getAuditorium(2);
+
+		// Then
+		assertEquals(expected, actual);
 	}
 }

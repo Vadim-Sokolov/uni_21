@@ -1,10 +1,11 @@
-package thyme.controller;
+package thyme.controller.rest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import thyme.controller.thyme.GroupControllerThyme;
+import thyme.controller.DbConnector;
 import thyme.model.Group;
 import thyme.model.dto.GroupDTO;
 import thyme.service.FacultyService;
@@ -24,10 +25,10 @@ import thyme.service.dtoconverter.GroupDtoConverter;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-class GroupControllerTest {
+class GroupControllerRestTest {
 
 	@Autowired
-	private GroupControllerThyme groupControllerThyme;
+	private GroupControllerRest groupController;
 
 	@Autowired
 	private GroupService groupService;
@@ -38,7 +39,7 @@ class GroupControllerTest {
 	private FacultyDtoConverter facultyDtoConverter;
 	@Autowired
 	private GroupDtoConverter groupDtoConverter;
-
+	
 	@BeforeAll
 	public static void init() throws ClassNotFoundException, SQLException {
 
@@ -74,7 +75,7 @@ class GroupControllerTest {
 		a.setFacultyId(1);
 
 		// When
-		groupControllerThyme.saveGroup(a);
+		groupController.addGroup(a);
 
 		Group actual = groupDtoConverter.toEntity(groupService.getGroup(4));
 
@@ -99,7 +100,7 @@ class GroupControllerTest {
 		a.setFacultyId(1);
 
 		// When
-		groupControllerThyme.saveGroup(a);
+		groupController.updateGroup(a, 1);
 
 		Group actual = groupDtoConverter.toEntity(groupService.getGroup(1));
 
@@ -115,11 +116,37 @@ class GroupControllerTest {
 		GroupDTO beforeDeletion = groupService.getGroup(3);
 
 		// When
-		groupControllerThyme.deleteGroup(3);
+		groupController.deleteGroup(3);
 
 		// Then
 		assertNotNull(beforeDeletion);
 		assertThrows(ServiceException.class, () -> groupService.getGroup(3));
+	}
+
+	@Test
+	void getGroupsTest() {
+		// Given
+		List<Group> list = groupController.getGroups();
+
+		// When
+
+		// Then
+		assertTrue(list.size() >= 2);
+	}
+
+	@Test
+	void getOneTest() {
+		// Given
+		GroupDTO expected = new GroupDTO();
+		expected.setId(2);
+		expected.setName("Group2");
+		expected.setFacultyId(1);
+
+		// When
+		GroupDTO actual = groupController.getGroup(2);
+
+		// Then
+		assertEquals(expected, actual);
 	}
 
 }

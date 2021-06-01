@@ -14,14 +14,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import thyme.controller.thyme.GroupController;
-import thyme.service.GroupService;
+import thyme.controller.thyme.CourseControllerThyme;
+import thyme.service.CourseService;
 
-@WebMvcTest(GroupController.class)
-class GroupMockMvcTest {
+@WebMvcTest(CourseControllerThyme.class)
+class CourseControllerMockMvcTest {
 
 	@MockBean
-	private GroupService groupService;
+	private CourseService courseService;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -33,36 +33,37 @@ class GroupMockMvcTest {
 		Connection connection = dbc.getConnection();
 		System.out.println("Connection obtained");
 		Statement statement = connection.createStatement();
-		statement.execute("DROP TABLE IF EXISTS groups CASCADE;");
+		statement.execute("DROP TABLE IF EXISTS course CASCADE;");
 		System.out.println("TABLE DROPPED");
-		statement.execute(
-				"create TABLE groups" + "(id serial primary key," + "group_name VARCHAR (200)," + "faculty_id int);");
+		statement.execute("create TABLE course" + "(id serial primary key," + "name VARCHAR (200),"
+				+ "number_of_weeks int, description text);");
 		System.out.println("TABLE CREATED");
 
-		statement.execute("insert into groups (group_name, faculty_id) values ('Group1', 1);");
-		statement.execute("insert into groups (group_name, faculty_id) values ('Group2', 1);");
-		statement.execute("insert into groups (group_name, faculty_id) values ('Group3', 1);");
-		System.out.println("GROUPS INSERTED");
+		statement.execute("insert into course (name, number_of_weeks, description) values ('Course1', 25, 'boo');");
+		statement.execute("insert into course (name, number_of_weeks, description) values ('Course2', 30, 'hoo');");
+		statement.execute("insert into course (name, number_of_weeks, description) values ('Course3', 35, 'omm');");
+		System.out.println("COURSES INSERTED");
 
 		connection.close();
 	}
-
+	
 	@Test
-	void getGroupsTest() throws Exception {
+	void getCoursesTest() throws Exception {
 
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/groups")).andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.view().name("group/groups"))
-				.andExpect(MockMvcResultMatchers.model().attributeExists("groupList"))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/courses"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.view().name("course/courses"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("courseList"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
-
+	
 	@Test
 	void showNewFormTest() throws Exception {
 
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/groups/newForm"))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/courses/newForm"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.view().name("group/new-group"))
-				.andExpect(MockMvcResultMatchers.model().attributeExists("groupDTO"))
+				.andExpect(MockMvcResultMatchers.view().name("course/new-course"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("courseDTO"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 }

@@ -14,14 +14,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import thyme.controller.thyme.FacultyController;
-import thyme.service.FacultyService;
+import thyme.controller.thyme.GroupControllerThyme;
+import thyme.service.GroupService;
 
-@WebMvcTest(FacultyController.class)
-class FacultyMockMvcTest {
+@WebMvcTest(GroupControllerThyme.class)
+class GroupControllerMockMvcTest {
 
 	@MockBean
-	private FacultyService facultyService;
+	private GroupService groupService;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -33,35 +33,36 @@ class FacultyMockMvcTest {
 		Connection connection = dbc.getConnection();
 		System.out.println("Connection obtained");
 		Statement statement = connection.createStatement();
-		statement.execute("DROP TABLE IF EXISTS faculty CASCADE;");
+		statement.execute("DROP TABLE IF EXISTS groups CASCADE;");
 		System.out.println("TABLE DROPPED");
-		statement.execute("CREATE TABLE faculty" + "(id serial primary key," + "faculty_name VARCHAR (200));");
+		statement.execute(
+				"create TABLE groups" + "(id serial primary key," + "group_name VARCHAR (200)," + "faculty_id int);");
 		System.out.println("TABLE CREATED");
 
-		statement.execute("insert into faculty (faculty_name) values ('Faculty1');");
-		statement.execute("insert into faculty (faculty_name) values ('Faculty2');");
-		statement.execute("insert into faculty (faculty_name) values ('Faculty3');");
-		System.out.println("FACULTIES INSERTED");
+		statement.execute("insert into groups (group_name, faculty_id) values ('Group1', 1);");
+		statement.execute("insert into groups (group_name, faculty_id) values ('Group2', 1);");
+		statement.execute("insert into groups (group_name, faculty_id) values ('Group3', 1);");
+		System.out.println("GROUPS INSERTED");
 
 		connection.close();
 	}
 
 	@Test
-	void getFacultysTest() throws Exception {
+	void getGroupsTest() throws Exception {
 
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/facultys")).andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.view().name("faculty/facultys"))
-				.andExpect(MockMvcResultMatchers.model().attributeExists("facultyList"))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/groups")).andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.view().name("group/groups"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("groupList"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 
 	@Test
 	void showNewFormTest() throws Exception {
 
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/facultys/newForm"))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/groups/newForm"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.view().name("faculty/new-faculty"))
-				.andExpect(MockMvcResultMatchers.model().attributeExists("facultyDTO"))
+				.andExpect(MockMvcResultMatchers.view().name("group/new-group"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("groupDTO"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 }

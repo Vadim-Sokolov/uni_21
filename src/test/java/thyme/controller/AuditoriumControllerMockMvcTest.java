@@ -16,12 +16,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import thyme.controller.thyme.AuditoriumController;
+import thyme.controller.thyme.AuditoriumControllerThyme;
 import thyme.service.AuditoriumService;
 import thyme.service.ServiceException;
 
-@WebMvcTest(AuditoriumController.class)
-class AuditoriumMockMvcTest {
+@WebMvcTest(AuditoriumControllerThyme.class)
+class AuditoriumControllerMockMvcTest {
 
 	@MockBean
 	private AuditoriumService auditoriumService;
@@ -87,8 +87,6 @@ class AuditoriumMockMvcTest {
 
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/auditoriums/delete?id=1"))
 				.andExpect(MockMvcResultMatchers.status().isFound())
-				//.andExpect(MockMvcResultMatchers.view().name("auditorium/update-auditorium"))
-				//.andExpect(MockMvcResultMatchers.model().attributeExists("auditorium"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 }

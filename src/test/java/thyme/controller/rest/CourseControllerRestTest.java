@@ -1,10 +1,11 @@
-package thyme.controller;
+package thyme.controller.rest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import thyme.controller.thyme.CourseControllerThyme;
+import thyme.controller.DbConnector;
 import thyme.model.Course;
 import thyme.model.dto.CourseDTO;
 import thyme.service.CourseService;
@@ -22,10 +23,10 @@ import thyme.service.dtoconverter.CourseDtoConverter;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-class CourseControllerTest {
+class CourseControllerRestTest {
 
 	@Autowired
-	private CourseControllerThyme courseControllerThyme;
+	private CourseControllerRest courseController;
 	@Autowired
 	private CourseService courseService;
 	@Autowired
@@ -68,7 +69,7 @@ class CourseControllerTest {
 		a.setDescription("weeee");
 
 		// When
-		courseControllerThyme.saveCourse(a);
+		courseController.addCourse(a);
 
 		Course actual = courseDtoConverter.toEntity(courseService.getCourse(4));
 
@@ -95,7 +96,7 @@ class CourseControllerTest {
 		a.setDescription("weeee");
 
 		// When
-		courseControllerThyme.saveCourse(a);
+		courseController.updateCourse(a, 1);
 
 		Course actual = courseDtoConverter.toEntity(courseService.getCourse(1));
 
@@ -111,10 +112,38 @@ class CourseControllerTest {
 		CourseDTO beforeDeletion = courseService.getCourse(3);
 
 		// When
-		courseControllerThyme.deleteCourse(3);
+		courseController.deleteCourse(3);
 
 		// Then
 		assertNotNull(beforeDeletion);
 		assertThrows(ServiceException.class, () -> courseService.getCourse(3));
+	}
+
+	@Test
+	void getCoursesTest() {
+		// Given
+		List<Course> list = courseController.getCourses();
+
+		// When
+
+		// Then
+		assertTrue(list.size() >= 2);
+	}
+
+	@Test
+	void getOneTest() {
+		// Given
+		CourseDTO expected = new CourseDTO();
+		expected.setId(2);
+		expected.setName("Course2");
+		expected.setNumberOfWeeks(30);
+		expected.setDescription("hoo");
+
+		// When
+		CourseDTO actual = courseController.getCourse(2);
+		System.out.println(actual.toString());
+
+		// Then
+		assertEquals(expected, actual);
 	}
 }

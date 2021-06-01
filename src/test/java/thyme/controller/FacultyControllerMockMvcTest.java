@@ -14,14 +14,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import thyme.controller.thyme.TeacherController;
-import thyme.service.TeacherService;
+import thyme.controller.thyme.FacultyControllerThyme;
+import thyme.service.FacultyService;
 
-@WebMvcTest(TeacherController.class)
-class TeacherMockMvcTest {
+@WebMvcTest(FacultyControllerThyme.class)
+class FacultyControllerMockMvcTest {
 
 	@MockBean
-	private TeacherService teacherService;
+	private FacultyService facultyService;
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -33,36 +33,35 @@ class TeacherMockMvcTest {
 		Connection connection = dbc.getConnection();
 		System.out.println("Connection obtained");
 		Statement statement = connection.createStatement();
-		statement.execute("DROP TABLE IF EXISTS teacher CASCADE;");
+		statement.execute("DROP TABLE IF EXISTS faculty CASCADE;");
 		System.out.println("TABLE DROPPED");
-		statement.execute("create TABLE teacher" + "(id serial primary key," + "first_name VARCHAR (200),"
-				+ "last_name VARCHAR (200), faculty_id int);");
+		statement.execute("CREATE TABLE faculty" + "(id serial primary key," + "faculty_name VARCHAR (200));");
 		System.out.println("TABLE CREATED");
 
-		statement.execute("insert into teacher (first_name, last_name, faculty_id) values ('Jip', 'Loch', 1);");
-		statement.execute("insert into teacher (first_name, last_name, faculty_id) values ('Skip', 'Dub', 1);");
-		statement.execute("insert into teacher (first_name, last_name, faculty_id) values ('Bob', 'Step', 1);");
-		System.out.println("TEACHERS INSERTED");
+		statement.execute("insert into faculty (faculty_name) values ('Faculty1');");
+		statement.execute("insert into faculty (faculty_name) values ('Faculty2');");
+		statement.execute("insert into faculty (faculty_name) values ('Faculty3');");
+		System.out.println("FACULTIES INSERTED");
 
 		connection.close();
 	}
 
 	@Test
-	void getTeachersTest() throws Exception {
+	void getFacultysTest() throws Exception {
 
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/teachers")).andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.view().name("teacher/teachers"))
-				.andExpect(MockMvcResultMatchers.model().attributeExists("teacherList"))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/facultys")).andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.view().name("faculty/facultys"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("facultyList"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 
 	@Test
 	void showNewFormTest() throws Exception {
 
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/teachers/newForm"))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/facultys/newForm"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
-				.andExpect(MockMvcResultMatchers.view().name("teacher/new-teacher"))
-				.andExpect(MockMvcResultMatchers.model().attributeExists("teacherDTO"))
+				.andExpect(MockMvcResultMatchers.view().name("faculty/new-faculty"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("facultyDTO"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 }

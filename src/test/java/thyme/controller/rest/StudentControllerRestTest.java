@@ -1,10 +1,11 @@
-package thyme.controller;
+package thyme.controller.rest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import thyme.controller.DbConnector;
 import thyme.controller.thyme.StudentControllerThyme;
 import thyme.model.Student;
 import thyme.model.dto.StudentDTO;
@@ -24,10 +26,10 @@ import thyme.service.dtoconverter.StudentDtoConverter;
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-class StudentControllerTest {
+class StudentControllerRestTest {
 
 	@Autowired
-	private StudentControllerThyme studentControllerThyme;
+	private StudentControllerRest studentController;
 
 	@Autowired
 	private StudentService studentService;
@@ -81,7 +83,7 @@ class StudentControllerTest {
 		a.setGroupId(1);
 
 		// When
-		studentControllerThyme.saveStudent(a);
+		studentController.addStudent(a);
 
 		Student actual = studentDtoConverter.toEntity(studentService.getStudent(4));
 
@@ -110,7 +112,7 @@ class StudentControllerTest {
 		a.setGroupId(1);
 
 		// When
-		studentControllerThyme.saveStudent(a);
+		studentController.updateStudent(a, 1);
 
 		Student actual = studentDtoConverter.toEntity(studentService.getStudent(1));
 
@@ -126,10 +128,37 @@ class StudentControllerTest {
 		StudentDTO beforeDeletion = studentService.getStudent(3);
 
 		// When
-		studentControllerThyme.deleteStudent(3);
+		studentController.deleteStudent(3);
 
 		// Then
 		assertNotNull(beforeDeletion);
 		assertThrows(ServiceException.class, () -> studentService.getStudent(3));
+	}
+	@Test
+	void getStudentsTest() {
+		// Given
+		List<Student> list = studentController.getStudents();
+
+		// When
+
+		// Then
+		assertTrue(list.size() >= 2);
+	}
+
+	@Test
+	void getOneTest() {
+		// Given
+		StudentDTO expected = new StudentDTO();
+		expected.setId(2);
+		expected.setFirstName("June");
+		expected.setLastName("Bay");
+		expected.setStudentCardNumber("zaboo");
+		expected.setGroupId(1);
+
+		// When
+		StudentDTO actual = studentController.getStudent(2);
+
+		// Then
+		assertEquals(expected, actual);
 	}
 }

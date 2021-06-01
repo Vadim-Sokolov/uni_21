@@ -13,11 +13,11 @@ import thyme.service.GroupService;
 
 @Controller
 @RequestMapping("/groups")
-public class GroupController {
+public class GroupControllerThyme {
 
 	private GroupService groupService;
 
-	public GroupController(GroupService groupService) {
+	public GroupControllerThyme(GroupService groupService) {
 		this.groupService = groupService;
 	}
 
