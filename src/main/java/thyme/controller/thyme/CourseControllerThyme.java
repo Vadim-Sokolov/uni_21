@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import thyme.model.dto.CourseDTO;
 import thyme.service.CourseService;
@@ -44,15 +45,15 @@ public class CourseControllerThyme {
 		return "redirect:/courses";
 	}
 
-	@GetMapping("/updateForm/{id}")
-	public String showUpdateForm(@PathVariable(value = "id") int id, Model model) {
+	@GetMapping("/updateForm")
+	public String showUpdateForm(@RequestParam("id") Integer id, Model model) {
 		CourseDTO courseDTO = courseService.getCourse(id);
 		model.addAttribute("course", courseDTO);
 		return "course/update-course";
 	}
 	
-	@GetMapping("/delete/{id}")
-	public String deleteCourse(@PathVariable(value = "id") int id) {
+	@GetMapping("/delete")
+	public String deleteCourse(Integer id) {
 		courseService.deleteCourse(id);
 		return "redirect:/courses";
 	}

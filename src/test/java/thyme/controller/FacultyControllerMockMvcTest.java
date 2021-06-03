@@ -1,5 +1,7 @@
 package thyme.controller;
 
+import static org.mockito.Mockito.when;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,6 +17,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import thyme.controller.thyme.FacultyControllerThyme;
+import thyme.model.dto.CourseDTO;
+import thyme.model.dto.FacultyDTO;
 import thyme.service.FacultyService;
 
 @WebMvcTest(FacultyControllerThyme.class)
@@ -45,16 +49,17 @@ class FacultyControllerMockMvcTest {
 
 		connection.close();
 	}
-
+	
 	@Test
 	void getFacultysTest() throws Exception {
 
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/facultys")).andExpect(MockMvcResultMatchers.status().isOk())
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/facultys"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.view().name("faculty/facultys"))
 				.andExpect(MockMvcResultMatchers.model().attributeExists("facultyList"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
-
+	
 	@Test
 	void showNewFormTest() throws Exception {
 
@@ -62,6 +67,30 @@ class FacultyControllerMockMvcTest {
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.view().name("faculty/new-faculty"))
 				.andExpect(MockMvcResultMatchers.model().attributeExists("facultyDTO"))
+				.andDo(MockMvcResultHandlers.print()).andReturn();
+	}
+
+	@Test
+	void showUpdateFormTest() throws Exception {
+		
+		FacultyDTO expected = new FacultyDTO();
+		expected.setId(1);
+		expected.setName("A1");
+		
+		when(facultyService.getFaculty(1)).thenReturn(expected);
+
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/facultys/updateForm?id=1"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.view().name("faculty/update-faculty"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("faculty"))
+				.andDo(MockMvcResultHandlers.print()).andReturn();
+	}
+	
+	@Test
+	void deleteFacultyTest() throws Exception {
+
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/facultys/delete?id=1"))
+				.andExpect(MockMvcResultMatchers.status().isFound())
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 }

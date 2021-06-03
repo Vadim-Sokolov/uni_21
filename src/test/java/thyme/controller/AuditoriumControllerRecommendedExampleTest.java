@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.Test;
 
 @WebMvcTest(AuditoriumControllerThyme.class)
-public class AuditoriumControllerRecommendedExampleTest {
+class AuditoriumControllerRecommendedExampleTest {
 
     @MockBean
     private AuditoriumService service;
@@ -25,7 +25,7 @@ public class AuditoriumControllerRecommendedExampleTest {
     private MockMvc mockMvc;
 
     @Test
-    public void getAuditoriumsTest() throws Exception {
+    void getAuditoriumsTest() throws Exception {
         this.mockMvc.perform(get("/auditoriums"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("auditorium/auditoriums"))
@@ -34,7 +34,7 @@ public class AuditoriumControllerRecommendedExampleTest {
     }
 
     @Test
-    public void getAuditoriumsContainStringTest() throws Exception {
+    void getAuditoriumsContainStringTest() throws Exception {
         this.mockMvc.perform(get("/auditoriums"))
         	.andExpect(status().isOk())
             .andExpect(content().string("<!DOCTYPE html>\r\n" + 

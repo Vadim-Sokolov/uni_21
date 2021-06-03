@@ -20,7 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @WebMvcTest(AuditoriumControllerThyme.class)
-public class AuditoriumControllerRestAssuredTest {
+class AuditoriumControllerRestAssuredTest {
 
 	@MockBean
 	private AuditoriumService service;

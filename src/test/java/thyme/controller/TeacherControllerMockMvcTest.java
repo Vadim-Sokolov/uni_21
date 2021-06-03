@@ -1,5 +1,7 @@
 package thyme.controller;
 
+import static org.mockito.Mockito.when;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,6 +17,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import thyme.controller.thyme.TeacherControllerThyme;
+import thyme.model.dto.StudentDTO;
+import thyme.model.dto.TeacherDTO;
 import thyme.service.TeacherService;
 
 @WebMvcTest(TeacherControllerThyme.class)
@@ -64,5 +68,27 @@ class TeacherControllerMockMvcTest {
 				.andExpect(MockMvcResultMatchers.view().name("teacher/new-teacher"))
 				.andExpect(MockMvcResultMatchers.model().attributeExists("teacherDTO"))
 				.andDo(MockMvcResultHandlers.print()).andReturn();
+	}
+
+	@Test
+	void showUpdateFormTest() throws Exception {
+
+		TeacherDTO expected = new TeacherDTO();
+		expected.setId(1);
+
+		when(teacherService.getTeacher(1)).thenReturn(expected);
+
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/teachers/updateForm?id=1"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.view().name("teacher/update-teacher"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("teacher"))
+				.andDo(MockMvcResultHandlers.print()).andReturn();
+	}
+
+	@Test
+	void deleteTeacherTest() throws Exception {
+
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/teachers/delete?id=1"))
+				.andExpect(MockMvcResultMatchers.status().isFound()).andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 }

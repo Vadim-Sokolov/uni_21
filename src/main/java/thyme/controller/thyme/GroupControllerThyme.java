@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import thyme.model.dto.GroupDTO;
 import thyme.service.GroupService;
@@ -44,15 +45,15 @@ public class GroupControllerThyme {
 		return "redirect:/groups";
 	}
 
-	@GetMapping("/updateForm/{id}")
-	public String showUpdateForm(@PathVariable(value = "id") int id, Model model) {
+	@GetMapping("/updateForm")
+	public String showUpdateForm(@RequestParam("id") Integer id, Model model) {
 		GroupDTO groupDTO = groupService.getGroup(id);
 		model.addAttribute("group", groupDTO);
 		return "group/update-group";
 	}
 	
-	@GetMapping("/delete/{id}")
-	public String deleteGroup(@PathVariable(value = "id") int id) {
+	@GetMapping("/delete")
+	public String deleteGroup(Integer id) {
 		groupService.deleteGroup(id);
 		return "redirect:/groups";
 	}

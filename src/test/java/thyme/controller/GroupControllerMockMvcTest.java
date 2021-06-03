@@ -1,5 +1,7 @@
 package thyme.controller;
 
+import static org.mockito.Mockito.when;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,6 +17,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import thyme.controller.thyme.GroupControllerThyme;
+import thyme.model.dto.FacultyDTO;
+import thyme.model.dto.GroupDTO;
 import thyme.service.GroupService;
 
 @WebMvcTest(GroupControllerThyme.class)
@@ -63,6 +67,30 @@ class GroupControllerMockMvcTest {
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.view().name("group/new-group"))
 				.andExpect(MockMvcResultMatchers.model().attributeExists("groupDTO"))
+				.andDo(MockMvcResultHandlers.print()).andReturn();
+	}
+	
+	@Test
+	void showUpdateFormTest() throws Exception {
+		
+		GroupDTO expected = new GroupDTO();
+		expected.setId(1);
+		expected.setName("A1");
+		
+		when(groupService.getGroup(1)).thenReturn(expected);
+
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/groups/updateForm?id=1"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.view().name("group/update-group"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("group"))
+				.andDo(MockMvcResultHandlers.print()).andReturn();
+	}
+	
+	@Test
+	void deleteGroupTest() throws Exception {
+
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/groups/delete?id=1"))
+				.andExpect(MockMvcResultMatchers.status().isFound())
 				.andDo(MockMvcResultHandlers.print()).andReturn();
 	}
 }

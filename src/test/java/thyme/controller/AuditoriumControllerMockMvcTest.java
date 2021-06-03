@@ -1,6 +1,7 @@
 package thyme.controller;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,8 +18,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import thyme.controller.thyme.AuditoriumControllerThyme;
+import thyme.model.dto.AuditoriumDTO;
 import thyme.service.AuditoriumService;
-import thyme.service.ServiceException;
 
 @WebMvcTest(AuditoriumControllerThyme.class)
 class AuditoriumControllerMockMvcTest {
@@ -74,6 +75,13 @@ class AuditoriumControllerMockMvcTest {
 	
 	@Test
 	void showUpdateFormTest() throws Exception {
+		
+		AuditoriumDTO expected = new AuditoriumDTO();
+		expected.setId(1);
+		expected.setName("A1");
+		expected.setCapacity(100);
+		
+		when(auditoriumService.getAuditorium(1)).thenReturn(expected);
 
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/auditoriums/updateForm?id=1"))
 				.andExpect(MockMvcResultMatchers.status().isOk())
