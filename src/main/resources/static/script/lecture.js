@@ -89,8 +89,8 @@ $("#findById").on("submit", function (event) {
     var id = $("#idForSearch").val();
     var url = "http://localhost:8080/rest/lectures/" + id;
 
-    $.getJSON(url, function (lecture) {
-        if (lecture == null) {
+    $.getJSON(url, function (lectureDTO) {
+        if (lectureDTO == null) {
             $('#notFound').show();
             $('html, body').animate({
                 scrollTop: $("#notFound").offset().top
@@ -98,12 +98,12 @@ $("#findById").on("submit", function (event) {
         } else {
             $('#lectureById').show();
             $('#lectureById').append($("<tr>")
-                .append($("<td>").append(lecture.id))
-                .append($("<td>").append(lecture.course.name))
-                .append($("<td>").append(lecture.auditorium.name))
-                .append($("<td>").append(lecture.teacher.firstName + " " + lecture.teacher.lastName))
-                .append($("<td>").append(lecture.group.name))
-                .append($("<td>").append(lecture.time)));
+                .append($("<td>").append(lectureDTO.id))
+                .append($("<td>").append(lectureDTO.course.name))
+                .append($("<td>").append(lectureDTO.auditorium.name))
+                .append($("<td>").append(lectureDTO.teacher.firstName + " " + lectureDTO.teacher.lastName))
+                .append($("<td>").append(lectureDTO.group.name))
+                .append($("<td>").append(lectureDTO.time)));
             $('html, body').animate({
                 scrollTop: $("#lectureById").offset().top
             });

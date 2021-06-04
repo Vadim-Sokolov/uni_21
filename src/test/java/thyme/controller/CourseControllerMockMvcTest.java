@@ -34,18 +34,14 @@ class CourseControllerMockMvcTest {
 
 		DbConnector dbc = new DbConnector();
 		Connection connection = dbc.getConnection();
-		System.out.println("Connection obtained");
 		Statement statement = connection.createStatement();
 		statement.execute("DROP TABLE IF EXISTS course CASCADE;");
-		System.out.println("TABLE DROPPED");
 		statement.execute("create TABLE course" + "(id serial primary key," + "name VARCHAR (200),"
 				+ "number_of_weeks int, description text);");
-		System.out.println("TABLE CREATED");
 
 		statement.execute("insert into course (name, number_of_weeks, description) values ('Course1', 25, 'boo');");
 		statement.execute("insert into course (name, number_of_weeks, description) values ('Course2', 30, 'hoo');");
 		statement.execute("insert into course (name, number_of_weeks, description) values ('Course3', 35, 'omm');");
-		System.out.println("COURSES INSERTED");
 
 		connection.close();
 	}

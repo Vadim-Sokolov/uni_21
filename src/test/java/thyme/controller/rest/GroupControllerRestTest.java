@@ -45,18 +45,14 @@ class GroupControllerRestTest {
 
 		DbConnector dbc = new DbConnector();
 		Connection connection = dbc.getConnection();
-		System.out.println("Connection obtained");
 		Statement statement = connection.createStatement();
 		statement.execute("DROP TABLE IF EXISTS groups CASCADE;");
-		System.out.println("TABLE DROPPED");
 		statement.execute(
 				"create TABLE groups" + "(id serial primary key," + "group_name VARCHAR (200)," + "faculty_id int);");
-		System.out.println("TABLE CREATED");
 
 		statement.execute("insert into groups (group_name, faculty_id) values ('Group1', 1);");
 		statement.execute("insert into groups (group_name, faculty_id) values ('Group2', 1);");
 		statement.execute("insert into groups (group_name, faculty_id) values ('Group3', 1);");
-		System.out.println("GROUPS INSERTED");
 
 		connection.close();
 	}
@@ -78,8 +74,6 @@ class GroupControllerRestTest {
 		groupController.addGroup(a);
 
 		Group actual = groupDtoConverter.toEntity(groupService.getGroup(4));
-
-		System.out.println(actual);
 
 		// Then
 		assertEquals(expected, actual);
@@ -103,8 +97,6 @@ class GroupControllerRestTest {
 		groupController.updateGroup(a, 1);
 
 		Group actual = groupDtoConverter.toEntity(groupService.getGroup(1));
-
-		System.out.println(actual);
 
 		// Then
 		assertEquals(expected, actual);

@@ -35,18 +35,14 @@ class GroupControllerMockMvcTest {
 
 		DbConnector dbc = new DbConnector();
 		Connection connection = dbc.getConnection();
-		System.out.println("Connection obtained");
 		Statement statement = connection.createStatement();
 		statement.execute("DROP TABLE IF EXISTS groups CASCADE;");
-		System.out.println("TABLE DROPPED");
 		statement.execute(
 				"create TABLE groups" + "(id serial primary key," + "group_name VARCHAR (200)," + "faculty_id int);");
-		System.out.println("TABLE CREATED");
 
 		statement.execute("insert into groups (group_name, faculty_id) values ('Group1', 1);");
 		statement.execute("insert into groups (group_name, faculty_id) values ('Group2', 1);");
 		statement.execute("insert into groups (group_name, faculty_id) values ('Group3', 1);");
-		System.out.println("GROUPS INSERTED");
 
 		connection.close();
 	}

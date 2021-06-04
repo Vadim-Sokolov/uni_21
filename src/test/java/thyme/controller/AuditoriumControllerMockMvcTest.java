@@ -35,19 +35,13 @@ class AuditoriumControllerMockMvcTest {
 
 		DbConnector dbc = new DbConnector();
 		Connection connection = dbc.getConnection();
-		System.out.println("Connection obtained");
 		Statement statement = connection.createStatement();
-		System.out.println("Statement created");
 		statement.execute("DROP TABLE IF EXISTS auditorium CASCADE;");
-		System.out.println("TABLE DROPPED");
 		statement.execute(
 				"create TABLE auditorium" + "(id serial primary key," + "name VARCHAR (200)," + "capacity int);");
-		System.out.println("TABLE CREATED");
 
 		statement.execute("insert into auditorium (name, capacity) values ('A1', 25);");
-		System.out.println("A1 inserted");
 		statement.execute("insert into auditorium (name, capacity) values ('B1', 30);");
-		System.out.println("B1 inserted");
 		statement.execute("insert into auditorium (name, capacity) values ('C1', 50);");
 
 		connection.close();

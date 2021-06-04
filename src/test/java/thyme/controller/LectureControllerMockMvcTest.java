@@ -35,13 +35,10 @@ class LectureControllerMockMvcTest {
 
 		DbConnector dbc = new DbConnector();
 		Connection connection = dbc.getConnection();
-		System.out.println("Connection obtained");
 		Statement statement = connection.createStatement();
 		statement.execute("DROP TABLE IF EXISTS lecture CASCADE;");
-		System.out.println("TABLE DROPPED");
 		statement.execute("create TABLE lecture" + "(id serial primary key," + "course_id int, auditorium_id int,"
 				+ "teacher_id int, group_id int, time time);");
-		System.out.println("TABLE CREATED");
 
 		statement.execute(
 				"insert into lecture (course_id, auditorium_id, teacher_id, group_id, time) values (1, 1, 1, 1, '09:00');");
@@ -49,7 +46,6 @@ class LectureControllerMockMvcTest {
 				"insert into lecture (course_id, auditorium_id, teacher_id, group_id, time) values (1, 1, 1, 1, '10:00');");
 		statement.execute(
 				"insert into lecture (course_id, auditorium_id, teacher_id, group_id, time) values (1, 1, 1, 1, '11:00');");
-		System.out.println("LECTURES INSERTED");
 
 		connection.close();
 	}

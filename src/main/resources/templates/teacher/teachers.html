@@ -44,8 +44,8 @@
                     <td th:text="${teacher.id}"></td>
                     <td th:text="${teacher.firstName + ' ' + teacher.lastName}"></td>
                     <td th:text="${teacher.faculty.name}"></td>
-                    <td><a th:href="@{/teachers/updateForm/{id}(id=${teacher.id})}" class="btn btn-primary">Update</a>
-                        <a th:href="@{/teachers/delete/{id}(id=${teacher.id})}" class="btn btn-danger">Delete</a>
+                    <td><a th:href="@{/teachers/updateForm/(id=${teacher.id})}" class="btn btn-primary">Update</a>
+                        <a th:href="@{/teachers/delete/(id=${teacher.id})}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             </tbody>

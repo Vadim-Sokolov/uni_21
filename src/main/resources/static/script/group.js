@@ -80,8 +80,8 @@ $("#findById").on("submit", function (event) {
     var id = $("#idForSearch").val();
     var url = "http://localhost:8080/rest/groups/" + id;
 
-    $.getJSON(url, function (group) {
-        if (group == null) {
+    $.getJSON(url, function (groupDTO) {
+        if (groupDTO == null) {
             $('#notFound').show();
             $('html, body').animate({
                 scrollTop: $("#notFound").offset().top
@@ -89,9 +89,9 @@ $("#findById").on("submit", function (event) {
         } else {
             $('#groupById').show();
             $('#groupById').append($("<tr>")
-                .append($("<td>").append(group.id))
-                .append($("<td>").append(group.name))
-                .append($("<td>").append(group.faculty.name)));
+                .append($("<td>").append(groupDTO.id))
+                .append($("<td>").append(groupDTO.name))
+                .append($("<td>").append(groupDTO.faculty.name)));
             $('html, body').animate({
                 scrollTop: $("#groupById").offset().top
             });

@@ -50,8 +50,8 @@
                     <td th:text="${lecture.teacher.firstName + ' ' + lecture.teacher.lastName}"></td>
                     <td th:text="${lecture.group.name}"></td>
                     <td th:text="${lecture.time}"></td>
-                    <td><a th:href="@{/lectures/updateForm/{id}(id=${lecture.id})}" class="btn btn-primary">Update</a>
-                        <a th:href="@{/lectures/delete/{id}(id=${lecture.id})}" class="btn btn-danger">Delete</a>
+                    <td><a th:href="@{/lectures/updateForm/(id=${lecture.id})}" class="btn btn-primary">Update</a>
+                        <a th:href="@{/lectures/delete/(id=${lecture.id})}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             </tbody>

@@ -75,8 +75,8 @@ $("#findById").on("submit", function (event) {
     var id = $("#idForSearch").val();
     var url = "http://localhost:8080/rest/courses/" + id;
 
-    $.getJSON(url, function (course) {
-        if (course == null) {
+    $.getJSON(url, function (courseDTO) {
+        if (courseDTO == null) {
             $('#notFound').show();
             $('html, body').animate({
                 scrollTop: $("#notFound").offset().top
@@ -84,10 +84,10 @@ $("#findById").on("submit", function (event) {
         } else {
             $('#courseById').show();
             $('#courseById').append($("<tr>")
-                .append($("<td>").append(course.id))
-                .append($("<td>").append(course.name))
-                .append($("<td>").append(course.numberOfWeeks))
-                .append($("<td>").append(course.description)));
+                .append($("<td>").append(courseDTO.id))
+                .append($("<td>").append(courseDTO.name))
+                .append($("<td>").append(courseDTO.numberOfWeeks))
+                .append($("<td>").append(courseDTO.description)));
             $('html, body').animate({
                 scrollTop: $("#courseById").offset().top
             });

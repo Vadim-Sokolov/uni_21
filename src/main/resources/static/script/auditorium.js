@@ -72,8 +72,8 @@ $("#findById").on("submit", function (event) {
     var id = $("#idForSearch").val();
     var url = "http://localhost:8080/rest/auditoriums/" + id;
 
-    $.getJSON(url, function (auditorium) {
-        if (auditorium == null) {
+    $.getJSON(url, function (auditoriumDTO) {
+        if (auditoriumDTO == null) {
             $('#notFound').show();
             $('html, body').animate({
                 scrollTop: $("#notFound").offset().top
@@ -81,9 +81,9 @@ $("#findById").on("submit", function (event) {
         } else {
             $('#auditoriumById').show();
             $('#auditoriumById').append($("<tr>")
-                .append($("<td>").append(auditorium.id))
-                .append($("<td>").append(auditorium.name))
-                .append($("<td>").append(auditorium.capacity)));
+                .append($("<td>").append(auditoriumDTO.id))
+                .append($("<td>").append(auditoriumDTO.name))
+                .append($("<td>").append(auditoriumDTO.capacity)));
             $('html, body').animate({
                 scrollTop: $("#auditoriumById").offset().top
             });

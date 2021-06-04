@@ -36,17 +36,13 @@ class FacultyControllerTest {
 
 		DbConnector dbc = new DbConnector();
 		Connection connection = dbc.getConnection();
-		System.out.println("Connection obtained");
 		Statement statement = connection.createStatement();
 		statement.execute("DROP TABLE IF EXISTS faculty CASCADE;");
-		System.out.println("TABLE DROPPED");
 		statement.execute("CREATE TABLE faculty" + "(id serial primary key," + "faculty_name VARCHAR (200));");
-		System.out.println("TABLE CREATED");
 
 		statement.execute("insert into faculty (faculty_name) values ('Faculty1');");
 		statement.execute("insert into faculty (faculty_name) values ('Faculty2');");
 		statement.execute("insert into faculty (faculty_name) values ('Faculty3');");
-		System.out.println("FACULTIES INSERTED");
 
 		connection.close();
 	}
@@ -66,8 +62,6 @@ class FacultyControllerTest {
 		facultyControllerThyme.saveFaculty(a);
 
 		Faculty actual = facultyDtoConverter.toEntity(facultyService.getFaculty(4));
-
-		System.out.println(actual);
 
 		// Then
 		assertEquals(expected, actual);
@@ -89,8 +83,6 @@ class FacultyControllerTest {
 		facultyControllerThyme.saveFaculty(a);
 
 		Faculty actual = facultyDtoConverter.toEntity(facultyService.getFaculty(1));
-
-		System.out.println(actual);
 
 		// Then
 		assertEquals(expected, actual);

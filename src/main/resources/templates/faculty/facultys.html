@@ -42,8 +42,8 @@
                 <tr th:each="faculty : ${facultyList}">
                     <td th:text="${faculty.id}"></td>
                     <td th:text="${faculty.name}"></td>
-                    <td><a th:href="@{/facultys/updateForm/{id}(id=${faculty.id})}" class="btn btn-primary">Update</a>
-                        <a th:href="@{/facultys/delete/{id}(id=${faculty.id})}" class="btn btn-danger">Delete</a>
+                    <td><a th:href="@{/facultys/updateForm/(id=${faculty.id})}" class="btn btn-primary">Update</a>
+                        <a th:href="@{/facultys/delete/(id=${faculty.id})}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             </tbody>

@@ -1,43 +1,41 @@
 
-$("#getStudents").on("click", function (event) {
+$("#getTeachers").on("click", function (event) {
     event.preventDefault();
-    $('#students tbody > tr').remove();
-    $('#students').show();
+    $('#teachers tbody > tr').remove();
+    $('#teachers').show();
     $('#hideTable').show();
-    $.getJSON('http://localhost:8080/rest/students', function (data) {
-        $(data).each(function (i, student) {
-            $('#students').append($("<tr>")
-                .append($("<td>").append(student.id))
-                .append($("<td>").append(student.firstName + " " + student.lastName))
-                .append($("<td>").append(student.studentCardNumber))
-                .append($("<td>").append(student.group.name)));
+    $.getJSON('http://localhost:8080/rest/teachers', function (data) {
+        $(data).each(function (i, teacher) {
+            $('#teachers').append($("<tr>")
+                .append($("<td>").append(teacher.id))
+                .append($("<td>").append(teacher.firstName + " " + teacher.lastName))
+                .append($("<td>").append(teacher.faculty.name)));
         });
     });
 });
 
 $("#hideTable").on("click", function (event) {
     event.preventDefault();
-    $('#students').hide();
+    $('#teachers').hide();
     $('#hideTable').hide();
 });
 
 
-$("#addStudent").on("submit", function (event) {
+$("#addTeacher").on("submit", function (event) {
 
     event.preventDefault();
     $('#notAdded').hide();
     var firstName = $("#firstName").val();
     var lastName = $("#lastName").val();
-    var cardNumber = $("#cardNumber").val();
-    var groupId = $("#groupId").val();
-    var student = { "firstName": firstName, "lastName": lastName, "studentCardNumber": cardNumber, "groupId": groupId };
+    var facultyId = $("#facultyId").val();
+    var teacher = { "firstName": firstName, "lastName": lastName, "facultyId": facultyId };
 
     $.ajax({
-        url: 'http://localhost:8080/rest/students',
+        url: 'http://localhost:8080/rest/teachers',
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
-        data: JSON.stringify(student),
+        data: JSON.stringify(teacher),
         error: function (response) {
             $('#notAdded').show();
             $("#notAdded").html(JSON.parse(response.responseText).message);
@@ -45,24 +43,23 @@ $("#addStudent").on("submit", function (event) {
     });
 });
 
-$("#updateStudent").on("submit", function (event) {
+$("#updateTeacher").on("submit", function (event) {
 
     event.preventDefault();
     $('#notUpdated').hide();
     var id = $("#idForUpdate").val();
     var firstName = $("#firstNameForUpdate").val();
     var lastName = $("#lastNameForUpdate").val();
-    var cardNumber = $("#cardNumberForUpdate").val();
-    var groupId = $("#groupIdForUpdate").val();
-    var student = { "firstName": firstName, "lastName": lastName, "studentCardNumber": cardNumber, "groupId": groupId };
-    var url = "http://localhost:8080/rest/students/" + id;
+    var facultyId = $("#facultyIdForUpdate").val();
+    var teacher = { "firstName": firstName, "lastName": lastName, "facultyId": facultyId };
+    var url = "http://localhost:8080/rest/teachers/" + id;
 
     $.ajax({
         url: url,
         type: 'PUT',
         contentType: 'application/json',
         dataType: 'json',
-        data: JSON.stringify(student),
+        data: JSON.stringify(teacher),
         error: function (response) {
             $('#notUpdated').show();
             $("#notUpdated").html(JSON.parse(response.responseText).message);
@@ -76,27 +73,26 @@ $("#updateStudent").on("submit", function (event) {
 $("#findById").on("submit", function (event) {
 
     event.preventDefault();
-    $('#studentById tbody > tr').remove();
-    $('#studentById').hide();
+    $('#teacherById tbody > tr').remove();
+    $('#teacherById').hide();
     $('#notFound').hide();
     var id = $("#idForSearch").val();
-    var url = "http://localhost:8080/rest/students/" + id;
+    var url = "http://localhost:8080/rest/teachers/" + id;
 
-    $.getJSON(url, function (student) {
-        if (student == null) {
+    $.getJSON(url, function (teacherDTO) {
+        if (teacherDTO == null) {
             $('#notFound').show();
             $('html, body').animate({
                 scrollTop: $("#notFound").offset().top
             });
         } else {
-            $('#studentById').show();
-            $('#studentById').append($("<tr>")
-                .append($("<td>").append(student.id))
-                .append($("<td>").append(student.firstName + " " + student.lastName))
-                .append($("<td>").append(student.studentCardNumber))
-                .append($("<td>").append(student.group.name)));
+            $('#teacherById').show();
+            $('#teacherById').append($("<tr>")
+                .append($("<td>").append(teacherDTO.id))
+                .append($("<td>").append(teacherDTO.firstName + " " + teacherDTO.lastName))
+                .append($("<td>").append(teacherDTO.facultyId)));
             $('html, body').animate({
-                scrollTop: $("#studentById").offset().top
+                scrollTop: $("#teacherById").offset().top
             });
         }
     });
@@ -107,7 +103,7 @@ $("#deleteById").on("submit", function (event) {
     event.preventDefault();
     $('#notDeleted').hide();
     var id = $("#idForDelete").val();
-    var url = "http://localhost:8080/rest/students/" + id;
+    var url = "http://localhost:8080/rest/teachers/" + id;
 
     $.ajax({
         url: url,
@@ -120,4 +116,3 @@ $("#deleteById").on("submit", function (event) {
         }
     });
 });
-

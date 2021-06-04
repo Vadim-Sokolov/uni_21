@@ -82,8 +82,8 @@ $("#findById").on("submit", function (event) {
     var id = $("#idForSearch").val();
     var url = "http://localhost:8080/rest/students/" + id;
 
-    $.getJSON(url, function (student) {
-        if (student == null) {
+    $.getJSON(url, function (studentDTO) {
+        if (studentDTO == null) {
             $('#notFound').show();
             $('html, body').animate({
                 scrollTop: $("#notFound").offset().top
@@ -91,10 +91,10 @@ $("#findById").on("submit", function (event) {
         } else {
             $('#studentById').show();
             $('#studentById').append($("<tr>")
-                .append($("<td>").append(student.id))
-                .append($("<td>").append(student.firstName + " " + student.lastName))
-                .append($("<td>").append(student.studentCardNumber))
-                .append($("<td>").append(student.group.name)));
+                .append($("<td>").append(studentDTO.id))
+                .append($("<td>").append(studentDTO.firstName + " " + studentDTO.lastName))
+                .append($("<td>").append(studentDTO.studentCardNumber))
+                .append($("<td>").append(studentDTO.groupId)));
             $('html, body').animate({
                 scrollTop: $("#studentById").offset().top
             });

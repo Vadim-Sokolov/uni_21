@@ -44,8 +44,8 @@
                     <td th:text="${group.id}"></td>
                     <td th:text="${group.name}"></td>
                     <td th:text="${group.faculty.name}"></td>
-                    <td><a th:href="@{/groups/updateForm/{id}(id=${group.id})}" class="btn btn-primary">Update</a>
-                        <a th:href="@{/groups/delete/{id}(id=${group.id})}" class="btn btn-danger">Delete</a>
+                    <td><a th:href="@{/groups/updateForm/(id=${group.id})}" class="btn btn-primary">Update</a>
+                        <a th:href="@{/groups/delete/(id=${group.id})}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             </tbody>

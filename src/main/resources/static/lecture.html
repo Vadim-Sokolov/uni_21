@@ -11,7 +11,7 @@
         integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 
-    <title>Students</title>
+    <title>Lectures</title>
 </head>
 
 <body>
@@ -20,29 +20,31 @@
           <tbody>
             <tr>
             	<td><a href="/">Home</a></td>
-				<td><a href="auditorium">Auditoriums</a></td>
-			    <td><a href="course">Courses</a></td>
-			    <td><a href="faculty">Faculties</a></td>
-			    <td><a href="group">Groups</a></td>
-			    <td><a href="lecture">Lectures</a></td>
-			    <td><a href="student">Students</a></td>
-			    <td><a href="teacher">Teachers</a></td>
+                <td><a href="auditorium.html">Auditoriums</a></td>
+			    <td><a href="course.html">Courses</a></td>
+			    <td><a href="faculty.html">Faculties</a></td>
+			    <td><a href="group.html">Groups</a></td>
+			    <td><a href="lecture.html">Lectures</a></td>
+			    <td><a href="student.html">Students</a></td>
+			    <td><a href="teacher.html">Teachers</a></td>
             </tr>
         </tbody>
     </table>
     
-    <button id="getStudents" type="button" class="btn btn-primary m-2">Get
-        Students</button>
+    <button id="getLectures" type="button" class="btn btn-primary m-2">Get
+        Lectures</button>
     <hr>
-    <table id="students" class="table table-sm table-primary table-striped table-hover 
+    <table id="lectures" class="table table-sm table-primary table-striped table-hover 
 	table-bordered border-dark w-auto m-2" style="display: none" caption-side="top">
-        <caption>Students</caption>
+        <caption>Lectures</caption>
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Card Number</th>
+                <th scope="col">Course</th>
+                <th scope="col">Auditorium</th>
+                <th scope="col">Teacher</th>
                 <th scope="col">Group</th>
+                <th scope="col">Time</th>
             </tr>
         </thead>
         <tbody>
@@ -55,41 +57,67 @@
     <button id="hideTable" type="button" class="btn btn-success m-2" style="display: none">Hide
         Table</button>
 
-    <form id="addStudent" class="form m-2">
-        <label for="addStudent" class="form-label">Add Student</label>
+    <form id="addLecture" class="form m-2">
+        <label for="addLecture" class="form-label">Add Lecture</label>
         <div class="mb-3">
-            <input type="text" id="firstName" placeholder="First Name" required>
+            <input type="text" id="courseId" placeholder="Course ID" required>
         </div>
          <div class="mb-3">
-            <input type="text" id="lastName" placeholder="Last Name" required>
+            <input type="text" id="auditoriumId" placeholder="Auditorium ID" required>
+        </div>
+        <div class="mb-3">
+            <input type="text" id="teacherId" placeholder="Teacher ID" required>
         </div>
         <div class="mb-3">
             <input type="text" id="groupId" placeholder="Group ID" required>
         </div>
         <div class="mb-3">
-            <input type="text" id="cardNumber" placeholder="Card Number" required>
-        </div>
+			<select id="time" required>
+				<option value="09:00">09:00</option>
+				<option value="10:00">10:00</option>
+				<option value="11:00">11:00</option>
+				<option value="12:00">12:00</option>
+				<option value="13:00">13:00</option>
+				<option value="14:00">14:00</option>
+				<option value="15:00">15:00</option>
+				<option value="16:00">16:00</option>
+				<option value="17:00">17:00</option>
+			</select>
+		</div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <span id="notAdded" style="display: none; background-color: red; padding: 5px; margin: 5px"></span>
 
-    <form id="updateStudent" class="form m-2">
-        <label for="updateStudent" class="form-label">Update Student</label>
-        <div class="mb-3">
-            <input type="text" id="idForUpdate" placeholder="Id" required>
+    <form id="updateLecture" class="form m-2">
+        <label for="updateLecture" class="form-label">Update Lecture</label>
+       <div class="mb-3">
+            <input type="text" id="idForUpdate" placeholder="ID" required>
         </div>
         <div class="mb-3">
-            <input type="text" id="firstNameForUpdate" placeholder="First Name" required>
+            <input type="text" id="courseIdForUpdate" placeholder="Course ID" required>
+        </div>
+         <div class="mb-3">
+            <input type="text" id="auditoriumIdForUpdate" placeholder="Auditorium ID" required>
         </div>
         <div class="mb-3">
-            <input type="text" id="lastNameForUpdate" placeholder="Last Name" required>
+            <input type="text" id="teacherIdForUpdate" placeholder="Teacher ID" required>
         </div>
         <div class="mb-3">
             <input type="text" id="groupIdForUpdate" placeholder="Group ID" required>
         </div>
         <div class="mb-3">
-            <input type="text" id="cardNumberForUpdate" placeholder="Card Number" required>
-        </div>
+			<select id="timeForUpdate" required>
+				<option value="09:00">09:00</option>
+				<option value="10:00">10:00</option>
+				<option value="11:00">11:00</option>
+				<option value="12:00">12:00</option>
+				<option value="13:00">13:00</option>
+				<option value="14:00">14:00</option>
+				<option value="15:00">15:00</option>
+				<option value="16:00">16:00</option>
+				<option value="17:00">17:00</option>
+			</select>
+		</div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <span id="notUpdated" style="display: none; background-color: red; padding: 5px; margin: 5px"></span>
@@ -102,15 +130,17 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
-    <table id="studentById" class="table table-sm table-primary table-striped table-hover 
+    <table id="lectureById" class="table table-sm table-primary table-striped table-hover 
 		table-bordered border-dark w-auto m-2" style="display: none">
-        <caption>Student</caption>
+        <caption>Lecture</caption>
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Card Number</th>
+                <th scope="col">Course</th>
+                <th scope="col">Auditorium</th>
+                <th scope="col">Teacher</th>
                 <th scope="col">Group</th>
+                <th scope="col">Time</th>
             </tr>
         </thead>
         <tbody>
@@ -131,7 +161,7 @@
     <span id="notDeleted" style="display: none; background-color: red; padding: 5px; margin: 5px">Not Found. Not
         Deleted.</span>
 
-    <script src="script/student.js"></script>
+    <script src="script/lecture.js"></script>
 </body>
 
 </html>

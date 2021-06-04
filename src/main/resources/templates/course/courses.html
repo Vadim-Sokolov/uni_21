@@ -46,8 +46,8 @@
                     <td th:text="${course.name}"></td>
                     <td th:text="${course.numberOfWeeks}"></td>
                     <td th:text="${course.description}"></td>
-                    <td><a th:href="@{/courses/updateForm/{id}(id=${course.id})}" class="btn btn-primary">Update</a>
-                        <a th:href="@{/courses/delete/{id}(id=${course.id})}" class="btn btn-danger">Delete</a>
+                    <td><a th:href="@{/courses/updateForm/(id=${course.id})}" class="btn btn-primary">Update</a>
+                        <a th:href="@{/courses/delete/(id=${course.id})}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             </tbody>

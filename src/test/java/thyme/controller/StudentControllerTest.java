@@ -44,13 +44,10 @@ class StudentControllerTest {
 
 		DbConnector dbc = new DbConnector();
 		Connection connection = dbc.getConnection();
-		System.out.println("Connection obtained");
 		Statement statement = connection.createStatement();
 		statement.execute("DROP TABLE IF EXISTS student CASCADE;");
-		System.out.println("TABLE DROPPED");
 		statement.execute("create TABLE student" + "(id serial primary key," + "student_card_number VARCHAR (200),"
 				+ "firstname VARCHAR (200), lastname VARCHAR (200), group_id int);");
-		System.out.println("TABLE CREATED");
 
 		statement.execute(
 				"insert into student (student_card_number, firstname, lastname, group_id) values ('aboo', 'May', 'Fair', 1);");
@@ -58,7 +55,6 @@ class StudentControllerTest {
 				"insert into student (student_card_number, firstname, lastname, group_id) values ('zaboo', 'June', 'Bay', 1);");
 		statement.execute(
 				"insert into student (student_card_number, firstname, lastname, group_id) values ('magoo', 'July', 'Slim', 1);");
-		System.out.println("STUDENTS INSERTED");
 
 		connection.close();
 	}
@@ -84,8 +80,6 @@ class StudentControllerTest {
 		studentControllerThyme.saveStudent(a);
 
 		Student actual = studentDtoConverter.toEntity(studentService.getStudent(4));
-
-		System.out.println(actual);
 
 		// Then
 		assertEquals(expected, actual);
@@ -113,8 +107,6 @@ class StudentControllerTest {
 		studentControllerThyme.saveStudent(a);
 
 		Student actual = studentDtoConverter.toEntity(studentService.getStudent(1));
-
-		System.out.println(actual);
 
 		// Then
 		assertEquals(expected, actual);
