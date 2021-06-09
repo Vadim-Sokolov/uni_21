@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import thyme.model.Auditorium;
 import thyme.service.AuditoriumService;
 import thyme.model.dto.AuditoriumDTO;
@@ -27,6 +29,8 @@ public class AuditoriumControllerRest {
 
 	@PostMapping("/rest/auditoriums")
 	@ResponseStatus(HttpStatus.CREATED)
+	@ApiOperation(value = "Adds new auditorium to database",
+	notes = "All fields must be filled in", response = Auditorium.class)
 	public Auditorium addAuditorium(@RequestBody AuditoriumDTO auditoriumDTO) {
 		return auditoriumService.addAuditorium(auditoriumDTO);
 	}
@@ -48,7 +52,9 @@ public class AuditoriumControllerRest {
 
 	@DeleteMapping("/rest/auditoriums/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteAuditorium(@PathVariable("id") int id) {
+	public void deleteAuditorium(
+			@ApiParam(value = "Id value for auditorium to be deleted", required = true) 
+			@PathVariable("id") int id) {
 		auditoriumService.deleteAuditorium(id);
 	}
 }
