@@ -36,22 +36,27 @@ public class AuditoriumControllerRest {
 	}
 
 	@PutMapping("/rest/auditoriums/{id}")
+	@ApiOperation(value = "Updates auditorium in database",
+	notes = "All fields must be filled in", response = Auditorium.class)
 	public Auditorium updateAuditorium(@RequestBody AuditoriumDTO auditoriumDTO, @PathVariable("id") int id) {
 		return auditoriumService.updateAuditorium(auditoriumDTO, id);
 	}
 
 	@GetMapping("/rest/auditoriums")
+	@ApiOperation(value = "Get list of all auditoriums")
 	public List<Auditorium> getAuditoriums() {
 		return auditoriumService.getAuditoriums();
 	}
 
 	@GetMapping("/rest/auditoriums/{id}")
+	@ApiOperation(value = "Find auditorium by id", response = AuditoriumDTO.class)
 	public AuditoriumDTO getAuditorium(@PathVariable("id") int id) {
 		return auditoriumService.getAuditorium(id);
 	}
 
 	@DeleteMapping("/rest/auditoriums/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ApiOperation(value = "Delete auditorium")
 	public void deleteAuditorium(
 			@ApiParam(value = "Id value for auditorium to be deleted", required = true) 
 			@PathVariable("id") int id) {
