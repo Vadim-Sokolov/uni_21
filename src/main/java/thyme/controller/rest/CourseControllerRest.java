@@ -28,34 +28,34 @@ public class CourseControllerRest {
 
 	@PostMapping("/rest/courses")
 	@ResponseStatus(HttpStatus.CREATED)
-	@ApiOperation(value = "Adds new course to database",
+	@ApiOperation(value = "Method adds new course to database",
 	notes = "All fields must be filled in", response = Course.class)
 	public Course addCourse(@RequestBody CourseDTO courseDTO) {
 		return courseService.addCourse(courseDTO);
 	}
 
 	@PutMapping("/rest/courses/{id}")
-	@ApiOperation(value = "Updates course in database",
+	@ApiOperation(value = "Method updates course in database",
 	notes = "All fields must be filled in", response = Course.class)
 	public Course updateCourse(@RequestBody CourseDTO courseDTO, @PathVariable("id") int id) {
 		return courseService.updateCourse(courseDTO, id);
 	}
 
 	@GetMapping("/rest/courses")
-	@ApiOperation(value = "Get list of all courses")
+	@ApiOperation(value = "Method returns list of all courses from database")
 	public List<Course> getCourses() {
 		return courseService.getCourses();
 	}
 
 	@GetMapping("/rest/courses/{id}")
-	@ApiOperation(value = "Find course by id", response = CourseDTO.class)
+	@ApiOperation(value = "Method finds and returns course by id from database", response = CourseDTO.class)
 	public CourseDTO getCourse(@PathVariable("id") int id) {
 		return courseService.getCourse(id);
 	}
 
 	@DeleteMapping("/rest/courses/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@ApiOperation(value = "Delete course")
+	@ApiOperation(value = "Method deletes course from database")
 	public void deleteCourse(@PathVariable("id") int id) {
 		courseService.deleteCourse(id);
 	}

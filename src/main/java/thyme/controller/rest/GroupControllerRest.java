@@ -28,32 +28,32 @@ public class GroupControllerRest {
 
 	@PostMapping("/rest/groups")
 	@ResponseStatus(HttpStatus.CREATED)
-	@ApiOperation(value = "Adds new group to database", notes = "All fields must be filled in", response = Group.class)
+	@ApiOperation(value = "Method adds new group to database", notes = "All fields must be filled in", response = Group.class)
 	public Group addGroup(@RequestBody GroupDTO groupDTO) {
 		return groupService.addGroup(groupDTO);
 	}
 
 	@PutMapping("/rest/groups/{groupId}")
-	@ApiOperation(value = "Updates group in database", notes = "All fields must be filled in", response = Group.class)
+	@ApiOperation(value = "Method updates group in database", notes = "All fields must be filled in", response = Group.class)
 	public Group updateGroup(@RequestBody GroupDTO groupDTO, @PathVariable("groupId") int groupId) {
 		return groupService.updateGroup(groupDTO, groupId);
 	}
 
 	@GetMapping("/rest/groups")
-	@ApiOperation(value = "Get list of all groups")
+	@ApiOperation(value = "Method returns list of all groups from database")
 	public List<Group> getGroups() {
 		return groupService.getGroups();
 	}
 
 	@GetMapping("/rest/groups/{id}")
-	@ApiOperation(value = "Find group by id", response = GroupDTO.class)
+	@ApiOperation(value = "Method finds and returns group by id from database", response = GroupDTO.class)
 	public GroupDTO getGroup(@PathVariable("id") int id) {
 		return groupService.getGroup(id);
 	}
 
 	@DeleteMapping("/rest/groups/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@ApiOperation(value = "Delete group")
+	@ApiOperation(value = "Method deletes group from database")
 	public void deleteGroup(@PathVariable("id") int id) {
 		groupService.deleteGroup(id);
 	}

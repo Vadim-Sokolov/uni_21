@@ -28,34 +28,34 @@ public class TeacherControllerRest {
 
 	@PostMapping("/rest/teachers")
 	@ResponseStatus(HttpStatus.CREATED)
-	@ApiOperation(value = "Adds new teacher to database",
+	@ApiOperation(value = "Method adds new teacher to database",
 	notes = "All fields must be filled in", response = Teacher.class)
 	public Teacher addTeacher(@RequestBody TeacherDTO teacherDTO) {
 		return teacherService.addTeacher(teacherDTO);
 	}
 
 	@PutMapping("/rest/teachers/{teacherId}")
-	@ApiOperation(value = "Updates teacher in database",
+	@ApiOperation(value = "Method updates teacher in database",
 	notes = "All fields must be filled in", response = Teacher.class)
 	public Teacher updateTeacher(@RequestBody TeacherDTO teacherDTO, @PathVariable("teacherId") int teacherId) {
 		return teacherService.updateTeacher(teacherDTO, teacherId);
 	}
 
 	@GetMapping("/rest/teachers")
-	@ApiOperation(value = "Get list of all teachers")
+	@ApiOperation(value = "Method returns list of all teachers from database")
 	public List<Teacher> getTeachers() {
 		return teacherService.getTeachers();
 	}
 
 	@GetMapping("/rest/teachers/{id}")
-	@ApiOperation(value = "Find teacher by id", response = TeacherDTO.class)
+	@ApiOperation(value = "Method finds and returns teacher by id from database", response = TeacherDTO.class)
 	public TeacherDTO getTeacher(@PathVariable("id") int id) {
 		return teacherService.getTeacher(id);
 	}
 
 	@DeleteMapping("/rest/teachers/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@ApiOperation(value = "Delete teacher")
+	@ApiOperation(value = "Method deletes teacher from database")
 	public void deleteTeacher(@PathVariable("id") int id) {
 		teacherService.deleteTeacher(id);
 	}

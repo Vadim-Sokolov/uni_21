@@ -28,32 +28,32 @@ public class LectureControllerRest {
 
 	@PostMapping("/rest/lectures")
 	@ResponseStatus(HttpStatus.CREATED)
-	@ApiOperation(value = "Adds new lecture to database", notes = "All fields must be filled in", response = Lecture.class)
+	@ApiOperation(value = "Method adds new lecture to database", notes = "All fields must be filled in", response = Lecture.class)
 	public Lecture addLecture(@RequestBody LectureDTO lectureDTO) {
 		return lectureService.addLecture(lectureDTO);
 	}
 
 	@PutMapping("/rest/lectures/{id}")
-	@ApiOperation(value = "Updates lecture in database", notes = "All fields must be filled in", response = Lecture.class)
+	@ApiOperation(value = "Method updates lecture in database", notes = "All fields must be filled in", response = Lecture.class)
 	public Lecture updateLecture(@RequestBody LectureDTO lectureDTO, @PathVariable("id") int id) {
 		return lectureService.updateLecture(lectureDTO, id);
 	}
 
 	@GetMapping("/rest/lectures")
-	@ApiOperation(value = "Get list of all lectures")
+	@ApiOperation(value = "Method returns list of all lectures from database")
 	public List<Lecture> getLectures() {
 		return lectureService.getLectures();
 	}
 
 	@GetMapping("/rest/lectures/{id}")
-	@ApiOperation(value = "Find lecture by id", response = LectureDTO.class)
+	@ApiOperation(value = "Method finds and returns lecture by id from database", response = LectureDTO.class)
 	public LectureDTO getLecture(@PathVariable("id") int id) {
 		return lectureService.getLecture(id);
 	}
 
 	@DeleteMapping("/rest/lectures/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@ApiOperation(value = "Delete lecture")
+	@ApiOperation(value = "Method deletes lecture from database")
 	public void deleteLecture(@PathVariable("id") int id) {
 		lectureService.deleteLecture(id);
 	}
