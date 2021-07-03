@@ -24,7 +24,7 @@ class AuditoriumControllerRestTest {
 
 	@Autowired
 	private AuditoriumControllerRest controller;
-	@Autowired 
+	@Autowired
 	private AuditoriumService service;
 
 	@BeforeAll
@@ -40,7 +40,6 @@ class AuditoriumControllerRestTest {
 		statement.execute("insert into auditorium (name, capacity) values ('A1', 25);");
 		statement.execute("insert into auditorium (name, capacity) values ('B1', 30);");
 		statement.execute("insert into auditorium (name, capacity) values ('C1', 50);");
-
 		connection.close();
 	}
 
@@ -105,7 +104,6 @@ class AuditoriumControllerRestTest {
 	void getAuditoriumsTest() {
 		// Given
 		List<Auditorium> list = controller.getAuditoriums();
-
 		// When
 
 		// Then
